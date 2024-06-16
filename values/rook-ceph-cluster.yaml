@@ -1,5 +1,5 @@
 toolbox:
-  enabled: true
+  enabled: false
 
 cephClusterSpec:
   resources:
