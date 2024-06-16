@@ -2,6 +2,9 @@ toolbox:
   enabled: false
 
 cephClusterSpec:
+  dashboard:
+    enabled: true
+    ssl: false
   resources:
     mgr:
       limits:
