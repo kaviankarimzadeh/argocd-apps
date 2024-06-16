@@ -36,3 +36,13 @@ stringData:
   password: <>
 type: Opaque
 ```
+
+#### Pushing helm chart to docker hub:
+```
+For example:
+{
+  helm package .
+  helm registry login registry-1.docker.io -u <username>
+  helm push cert-manager-v1.15.0.tgz oci://registry-1.docker.io/<username>
+}
+```
