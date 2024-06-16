@@ -7,11 +7,11 @@ cephClusterSpec:
     useAllDevices: false
     nodes:
       - name: "kube-worker0"
-        deviceFilter: ^(?!sda).*
+        deviceFilter: ^(?!sda).* #everything except sda
       - name: "kube-worker1"
-        deviceFilter: ^(?!sda).*
+        deviceFilter: ^(?!sda).* #everything except sda
       - name: "kube-worker2"
-        deviceFilter: ^(?!sda).*
+        deviceFilter: ^(?!sda).* #everything except sda
 
 ingress:
   dashboard:
