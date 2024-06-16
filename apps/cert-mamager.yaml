@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: registry-1.docker.io
+    repoURL: registry-1.docker.io/kaviankarimzadeh
     targetRevision: v1.15.0
     chart: cert-manager
     helm:
