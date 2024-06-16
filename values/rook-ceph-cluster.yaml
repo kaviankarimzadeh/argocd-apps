@@ -17,8 +17,8 @@ ingress:
   dashboard:
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      nginx.ingress.kubernetes.io/server-snippet: |
-        proxy_ssl_verify off;
+      # nginx.ingress.kubernetes.io/server-snippet: |
+      #   proxy_ssl_verify off;
     host:
       name: rook-ceph.kkloud.online
       path: "/"
