@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: registry-1.docker.io/kaviankarimzadeh/cert-manager
+    targetRevision: v1.15.0
+    chart: cert-manager
+    helm:
+      parameters:
+      - name: "crds.enabled"
+        value: true
+      - name: "crds.keep"
+        value: true
+      releaseName: cert-manager
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true
+  ignoreDifferences:
+  - group: 'cert-manager.io'
+    kind: 'ClusterIssuer'
+    name: '{{host}}'
+    jsonPointers:
+      - '/spec/acme/preferredChain'
