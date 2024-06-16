@@ -16,9 +16,9 @@ spec:
         - name: 'csi.enableMetadata'
           value: 'true'
         releaseName: rook-ceph-cluster
-          valueFiles:
-          - values.yaml
-          - $values/values/rook-ceph-cluster.yaml
+        valueFiles:
+        - values.yaml
+        - $values/values/rook-ceph-cluster.yaml
     - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
       targetRevision: main
       ref: values
