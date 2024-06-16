@@ -35,6 +35,7 @@ cephClusterSpec:
 ingress:
   dashboard:
     annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       # nginx.ingress.kubernetes.io/server-snippet: |
       #   proxy_ssl_verify off;
