@@ -1,0 +1,29 @@
+toolbox:
+  enabled: true
+
+cephClusterSpec:
+  storage:
+    useAllNodes: false
+    useAllDevices: false
+    nodes:
+      - name: "kube-worker0"
+        deviceFilter: ^(?!sda).*
+      - name: "kube-worker1"
+        deviceFilter: ^(?!sda).*
+      - name: "kube-worker2"
+        deviceFilter: ^(?!sda).*
+
+ingress:
+  dashboard:
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/server-snippet: |
+        proxy_ssl_verify off;
+    host:
+      name: rook-ceph.kkloud.online
+      path: "/"
+    tls:
+    - hosts:
+        - rook-ceph.kkloud.online
+      secretName: rook-ceph-tls
+    ingressClassName: nginx

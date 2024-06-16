@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rook-ceph
+  namespace: argo-cd
+spec:
+  project: default
+  source:
+    repoURL: registry-1.docker.io/kaviankarimzadeh
+    targetRevision: v1.14.6
+    chart: rook-ceph
+    helm:
+      parameters:
+      - name: 'crds.enabled'
+        value: 'true'
+      - name: 'logLevel'
+        value: 'DEBUG'
+      - name: 'csi.enableCephfsDriver'
+        value: 'false'
+      - name: 'csi.enableMetadata'
+        value: 'true'
+      releaseName: rook-ceph
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: rook-ceph
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true
