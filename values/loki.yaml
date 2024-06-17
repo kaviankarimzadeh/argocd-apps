@@ -77,3 +77,8 @@ backend:
         name: s3-credentials
   extraArgs:
     - -config.expand-env=true
+
+resultsCache:
+  enabled: false
+chunksCache:
+  enabled: false
