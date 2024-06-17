@@ -1,0 +1,58 @@
+mode: standalone
+rootUser: ""
+rootPassword: ""
+
+drivesPerNode: 1
+replicas: 3
+pools: 1
+
+persistence:
+  enabled: true
+  storageClass: "ceph-block"
+  volumeName: ""
+  accessMode: ReadWriteOnce
+  size: 1Gi
+
+ingress:
+  enabled: true
+  ingressClassName: 'nginx'
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    # kubernetes.io/ingress.allow-http: "false"
+    # kubernetes.io/ingress.global-static-ip-name: ""
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+  path: /
+  hosts:
+    - minio.kkloud.online
+  tls:
+   - secretName: minio-tls
+     hosts:
+       - minio.kkloud.online
+
+consoleIngress:
+  enabled: true
+  ingressClassName: 'nginx'
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    # kubernetes.io/ingress.allow-http: "false"
+    # kubernetes.io/ingress.global-static-ip-name: ""
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+  path: /
+  hosts:
+    - minio-console.kkloud.online
+  tls:
+   - secretName: minio-console-tls
+     hosts:
+       - minio-console.kkloud.online
+
+resources:
+  requests:
+    memory: 500Mi
