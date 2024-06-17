@@ -28,6 +28,7 @@ loki:
       cache_location: /var/loki/tsdb-cache
       index_gateway_client:
         server_address: '{{ include "loki.indexGatewayAddress" . }}'
+        log_gateway_requests: true
 
 test:
   enabled: false
