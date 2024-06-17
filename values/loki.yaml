@@ -17,11 +17,17 @@ loki:
     configs:
       - from: 2024-06-16
         object_store: s3
-        store: tsdb
+        store: tsdb #https://grafana.com/docs/loki/latest/setup/migrate/migrate-to-tsdb/
         schema: v13
         index:
           prefix: index_
           period: 24h
+  storage_config:
+    tsdb_shipper:  #https://grafana.com/docs/loki/latest/configure/#storage_config
+      active_index_directory: /data/tsdb-index
+      cache_location: /data/tsdb-cache
+      index_gateway_client:
+        server_address: '{{ include "loki.indexGatewayAddress" . }}'
 
 test:
   enabled: false
