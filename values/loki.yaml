@@ -43,14 +43,14 @@ gateway:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
-      - host: gateway-loki.kkloud.online
+      - host: loki-gateway.kkloud.online
         paths:
           - path: /
             pathType: Prefix
     tls:
-      - secretName: gateway-loki-tls
+      - secretName: loki-gateway-tls
         hosts:
-          - gateway-loki.kkloud.online
+          - loki-gateway.kkloud.online
 
 write:
   replicas: 3
