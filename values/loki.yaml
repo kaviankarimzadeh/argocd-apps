@@ -2,10 +2,6 @@
 deploymentMode: SimpleScalable #up to a about 1TB/day.
 loki:
   auth_enabled: false
-  commonConfig:
-    path_prefix: /var/loki
-    replication_factor: 3
-    compactor_address: '{{ include "loki.compactorAddress" . }}'
   storage:
     bucketNames:
       chunks: loki-chunks
