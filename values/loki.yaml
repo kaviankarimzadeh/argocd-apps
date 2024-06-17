@@ -47,10 +47,10 @@ gateway:
         paths:
           - path: /
             pathType: Prefix
-    tls:
-      - secretName: loki-gateway-tls
-        hosts:
-          - loki-gateway.kkloud.online
+    tls: []
+      # - secretName: loki-gateway-tls
+      #   hosts:
+      #     - loki-gateway.kkloud.online
 
 write:
   replicas: 3
