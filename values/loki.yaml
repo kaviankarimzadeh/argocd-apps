@@ -36,6 +36,7 @@ gateway:
       - host: gateway-loki.kkloud.online
         paths:
           - path: /
+            pathType: Prefix
     tls:
       - secretName: gateway-loki-tls
         hosts:
