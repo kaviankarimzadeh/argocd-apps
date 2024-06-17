@@ -12,6 +12,15 @@ loki:
       accessKeyId: ${SECRET_ACCESS_KEY}
       s3ForcePathStyle: true
       insecure: true
+  schema_config: #https://grafana.com/docs/loki/latest/operations/storage/schema/
+    configs:
+      - from: 2024-06-16
+        object_store: s3
+        store: tsdb
+        schema: v13
+        index:
+          prefix: index_
+          period: 24h
 
 test:
   enabled: false
