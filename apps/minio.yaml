@@ -24,3 +24,7 @@ spec:
     automated: null
     syncOptions:
     - CreateNamespace=true
+  ignoreDifferences:
+  - group: ''
+    kind: 'Secret'
+    name: 'minio'
