@@ -1,5 +1,6 @@
 mode: standalone
-
+deploymentUpdate:
+  type: Recreate
 persistence:
   enabled: true
   storageClass: "ceph-block"
