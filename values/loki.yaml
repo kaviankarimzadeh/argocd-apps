@@ -32,7 +32,8 @@ gateway:
   ingress:
     enabled: true
     ingressClassName: "nginx"
-    annotations: {}
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
       - host: gateway-loki.kkloud.online
         paths:
