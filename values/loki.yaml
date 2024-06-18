@@ -30,6 +30,9 @@ loki:
       index_gateway_client:
         server_address: '{{ include "loki.indexGatewayAddress" . }}'
         log_gateway_requests: true
+  limits_config:
+    ingestion_rate_mb: 10000
+    ingestion_burst_size_mb: 4096
 
 test:
   enabled: false
