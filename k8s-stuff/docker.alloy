@@ -1,0 +1,21 @@
+logging {
+  level  = "debug"
+  format = "logfmt"
+}
+
+discovery.docker "linux" {
+  host = "unix:///var/run/docker.sock"
+}
+
+loki.source.docker "default" {
+  host       = "unix:///var/run/docker.sock"
+  targets    = discovery.docker.linux.targets
+  forward_to = [loki.write.grafana_loki.receiver]
+  labels     = {component = "loki.source.docker"}
+}
+
+loki.write "grafana_loki" {
+  endpoint {
+    url = "http://gateway.example.com/loki/api/v1/push"
+  }
+}
