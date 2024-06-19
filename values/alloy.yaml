@@ -41,7 +41,7 @@ ingress:
   pathType: Prefix
   hosts:
     - alloy.kkloud.online
-  tls: []
+  tls:
    - secretName: alloy-tls
      hosts:
        - alloy.kkloud.online
