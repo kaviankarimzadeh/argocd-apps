@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: external-file
+  namespace: collectors
+data:
+  external.yaml: |
+    - targets:
+      - 127.0.0.1:8080
+      labels:
+        server: server1

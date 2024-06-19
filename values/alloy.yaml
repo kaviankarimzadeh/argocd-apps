@@ -4,7 +4,7 @@ crds:
 alloy:
   configMap:
     create: false
-    name: external-endpoints-file
+    name: external-alloy
     key: config.alloy
 
   clustering:
@@ -15,12 +15,21 @@ alloy:
   mounts:
     varlog: false
     dockercontainers: false
+    extra:
+    - name: endpoints
+      mountPath: /etc/alloy/external
+      readOnly: true
 
 configReloader:
   enabled: true
 
 controller:
   type: 'statefulset'
+  volumes:
+    extra:
+    - name: endpoints
+      configMap:
+        name: external-file
 
 ingress:
   enabled: true
