@@ -12,6 +12,8 @@ mimir:
         access_key_id: ${ACCESS_KEY_ID}
         endpoint: minio.minio:9000
         secret_access_key: ${SECRET_ACCESS_KEY}
+        http:
+          insecure_skip_verify: true
     # alertmanager_storage:
     #   s3:
     #     bucket_name: mimir-ruler
