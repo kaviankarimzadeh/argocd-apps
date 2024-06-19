@@ -1,0 +1,76 @@
+global:
+  extraEnvFrom:
+    - secretRef:
+        name: s3-credentials
+
+mimir:
+  structuredConfig:
+    blocks_storage:
+      backend: s3
+      s3:
+        bucket_name: mimir-blocks
+        access_key_id: ${ACCESS_KEY_ID}
+        endpoint: minio.minio:9000
+        secret_access_key: ${SECRET_ACCESS_KEY}
+    # alertmanager_storage:
+    #   s3:
+    #     bucket_name: mimir-ruler
+    #     access_key_id: ${ACCESS_KEY_ID}
+    #     endpoint: minio.minio:9000
+    #     secret_access_key: ${SECRET_ACCESS_KEY}
+    # ruler_storage:
+    #   s3:
+    #     bucket_name: mimir-ruler
+    #     access_key_id: ${ACCESS_KEY_ID}
+    #     endpoint: minio.minio:9000
+    #     secret_access_key: ${SECRET_ACCESS_KEY}
+
+gateway:
+  enabledNonEnterprise: true
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: mimir.kkloud.online
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: mimir-tls
+        hosts:
+          - mimir.kkloud.online
+
+ingester:
+  persistentVolume:
+    enabled: true
+    size: 1Gi
+
+store_gateway:
+  persistentVolume:
+    enabled: true
+    size: 1Gi
+
+compactor:
+  persistentVolume:
+    enabled: true
+    size: 1Gi
+
+minio:
+  enabled: false
+
+alertmanager:
+  enabled: false
+
+ruler:
+  enabled: false
+
+memcachedExporter:
+  enabled: false
+
+rollout_operator:
+  enabled: false
+
+ingress:
+  enabled: false
