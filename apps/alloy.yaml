@@ -19,7 +19,7 @@ spec:
       ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: collector
+    namespace: collectors
   syncPolicy:
     automated: null
     syncOptions:
