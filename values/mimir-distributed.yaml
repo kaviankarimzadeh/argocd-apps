@@ -40,10 +40,10 @@ gateway:
         paths:
           - path: /
             pathType: Prefix
-    tls:
-      - secretName: mimir-tls
-        hosts:
-          - mimir.kkloud.online
+    tls: []
+      # - secretName: mimir-tls
+      #   hosts:
+      #     - mimir.kkloud.online
 
 ingester:
   persistentVolume:
