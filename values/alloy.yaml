@@ -1,5 +1,5 @@
 crds:
-  create: true
+  create: false
 
 alloy:
   configMap:
