@@ -24,3 +24,4 @@ server:
 controller:
   workflowNamespaces:
     - default
+    - monitoring
