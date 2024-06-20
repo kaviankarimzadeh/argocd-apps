@@ -3,6 +3,7 @@ singleNamespace: false
 workflow:
   serviceAccount:
     create: true
+    name: "argo-workflow"
 
 server:
   authModes: ["server"]
