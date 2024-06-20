@@ -2,7 +2,7 @@ singleNamespace: false
 
 server:
   ingress:
-    enabled: false
+    enabled: true
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
     ingressClassName: "nginx"
