@@ -1,5 +1,9 @@
 singleNamespace: false
 
+workflow:
+  serviceAccount:
+    create: true
+
 server:
   authModes: ["server"]
   ingress:
@@ -16,3 +20,7 @@ server:
       - secretName: argo-workflow-tls
         hosts:
           - argo-workflow.kkloud.online
+
+controller:
+  workflowNamespaces:
+    - default
