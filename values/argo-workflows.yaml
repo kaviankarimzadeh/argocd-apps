@@ -1,6 +1,7 @@
 singleNamespace: false
 
 server:
+  authModes: ["server"]
   ingress:
     enabled: true
     annotations:
