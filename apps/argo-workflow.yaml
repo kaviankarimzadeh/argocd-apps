@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflow
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: 0.41.11
+      chart: argo-workflow
+      helm:
+        releaseName: argo-workflow
+        valueFiles:
+        - values.yaml
+        - $values/values/argo-workflow.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true
