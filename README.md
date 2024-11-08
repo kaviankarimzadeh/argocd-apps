@@ -37,6 +37,11 @@ stringData:
 type: Opaque
 ```
 
+#### to add local cluster
+```
+argocd cluster add kubernetes-admin@cluster.local --name cloud1
+```
+
 #### Pushing helm chart to docker hub:
 ```
 For example:
