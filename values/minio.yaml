@@ -22,11 +22,11 @@ ingress:
     # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
   path: /
   hosts:
-    - minio.kkloud.online
+    - minio.kkloud.nl
   tls:
    - secretName: minio-tls
      hosts:
-       - minio.kkloud.online
+       - minio.kkloud.nl
 
 consoleIngress:
   enabled: true
@@ -42,11 +42,11 @@ consoleIngress:
     # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
   path: /
   hosts:
-    - minio-console.kkloud.online
+    - minio-console.kkloud.nl
   tls:
    - secretName: minio-console-tls
      hosts:
-       - minio-console.kkloud.online
+       - minio-console.kkloud.nl
 
 resources:
   requests:
