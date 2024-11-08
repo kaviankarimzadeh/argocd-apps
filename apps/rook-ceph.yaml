@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: registry-1.docker.io/kaviankarimzadeh
-    targetRevision: v1.14.6
+    targetRevision: v1.15.5
     chart: rook-ceph
     helm:
       parameters:
