@@ -1,0 +1,11 @@
+global:
+  storageClass: "ceph-block"
+  postgresql:
+    existingSecret: "postgresql-creds"
+  pgpool:
+    existingSecret: "pgpool-creds"
+
+persistence:
+  enabled: true
+  storageClass: "ceph-block"
+  size: 1Gi

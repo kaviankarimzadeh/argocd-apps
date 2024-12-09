@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgresql-ha
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: 15.0.4
+      chart: postgresql-ha
+      helm:
+        releaseName: postgresql-ha
+        valueFiles:
+        - values.yaml
+        - $values/values/postgresql-ha.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true

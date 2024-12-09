@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgresql-creds
+  namespace: vault
+type: Opaque
+stringData:
+  username: ""
+  password: ""
+  database: ""
+  repmgrUsername: ""
+  repmgrPassword: ""
+  repmgrDatabase: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pgpool-creds
+  namespace: vault
+type: Opaque
+stringData:
+  adminUsername: ""
+  adminPassword: ""
