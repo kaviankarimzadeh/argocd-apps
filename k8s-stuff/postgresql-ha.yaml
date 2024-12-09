@@ -17,3 +17,8 @@ metadata:
 type: Opaque
 stringData:
   admin-password: ""
+
+## Login to vault DB with these credential:
+## PGPOOL_POSTGRES_PASSWORD : "" vautusername
+## PGPOOL_POSTGRES_USERNAME : "" vaultpassword
+## PGPOOL_SR_CHECK_DATABASE : postgres
