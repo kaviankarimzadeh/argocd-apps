@@ -3,11 +3,11 @@ global:
   postgresql:
     username: "vault"
     database: "vault"
-    repmgr-username: "vault-rep"
-    repmgr-database: "vault-rep"
+    repmgrUsername: "vault-rep"
+    repmgrDatabase: "vault-rep"
     existingSecret: "postgresql-creds"
   pgpool:
-    admin-username: pgadmin
+    adminUsername: pgadmin
     existingSecret: "pgpool-creds"
 
 persistence:
