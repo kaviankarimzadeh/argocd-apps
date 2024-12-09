@@ -30,7 +30,8 @@ server:
     activeService: true
     hosts:
       - host: vault.kkloud.nl
-        paths: "/"
+        paths: 
+        - "/"
     tls:
      - secretName: vault-ingress
        hosts:
