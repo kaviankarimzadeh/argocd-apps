@@ -8,9 +8,9 @@ stringData:
   username: ""
   password: ""
   database: ""
-  repmgrUsername: ""
-  repmgrPassword: ""
-  repmgrDatabase: ""
+  repmgr-username: ""
+  repmgr-password: ""
+  repmgr-database: ""
 ---
 apiVersion: v1
 kind: Secret
@@ -19,5 +19,5 @@ metadata:
   namespace: vault
 type: Opaque
 stringData:
-  adminUsername: ""
-  adminPassword: ""
+  admin-username: ""
+  admin-password: ""
