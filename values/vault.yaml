@@ -1,0 +1,59 @@
+global:
+  enabled: false
+
+injector:
+  enabled: true
+  authPath: "auth/kubernetes"
+
+server:
+  enabled: true
+
+  volumes:
+    - name: userconfig-vault-storage-config
+      secret:
+        defaultMode: 420
+        secretName: vault-storage-config
+
+  volumeMounts:
+    - mountPath: /vault/userconfig/vault-storage-config
+      name: userconfig-vault-storage-config
+      readOnly: true
+
+  extraArgs: "-config=/vault/userconfig/vault-storage-config/config.hcl"
+
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingressClassName: "nginx"
+    pathType: Prefix
+    activeService: true
+    hosts:
+      - host: vault.kkloud.nl
+        paths: "/"
+    tls:
+     - secretName: vault-ingress
+       hosts:
+         - vault.kkloud.nl
+
+  dataStorage:
+    enabled: false
+
+  standalone:
+    enabled: false
+
+  ha:
+    enabled: true
+    replicas: 3
+    raft:
+      enabled: false
+    config: |
+      ui = true
+
+      listener "tcp" {
+        tls_disable = 1
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+      }
+
+      service_registration "kubernetes" {}
