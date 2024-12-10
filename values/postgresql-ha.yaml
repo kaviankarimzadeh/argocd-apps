@@ -1,14 +1,12 @@
-global:
-  storageClass: "ceph-block"
-  postgresql:
-    username: "vault"
-    database: "vault"
-    repmgrUsername: "repmgr"
-    repmgrDatabase: "repmgr"
-    existingSecret: "postgresql-creds"
-  pgpool:
-    adminUsername: pgadmin
-    existingSecret: "pgpool-creds"
+postgresql:
+  username: "vault"
+  database: "vault"
+  existingSecret: "postgresql-creds"
+  repmgrUsername: repmgr
+  repmgrDatabase: repmgr
+pgpool:
+  adminUsername: pgadmin
+  existingSecret: "pgpool-creds"
 
 persistence:
   enabled: true
