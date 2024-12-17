@@ -1,4 +1,6 @@
 mode: standalone
+existingSecret: "minio-creds"
+
 deploymentUpdate:
   type: Recreate
 persistence:
