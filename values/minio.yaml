@@ -6,7 +6,7 @@ persistence:
   storageClass: "ceph-block"
   volumeName: ""
   accessMode: ReadWriteOnce
-  size: 1Gi
+  size: 2Gi
 
 ingress:
   enabled: true
