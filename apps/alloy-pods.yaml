@@ -19,7 +19,7 @@ spec:
       ref: values
     - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
       targetRevision: main
-      path: ./k8s-stuff/alloy-pods.yaml
+      path: ./k8s-stuff/alloy/logs
   destination:
     server: https://kubernetes.default.svc
     namespace: collectors
