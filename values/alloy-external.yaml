@@ -40,8 +40,8 @@ ingress:
   faroPort: 12347
   pathType: Prefix
   hosts:
-    - alloy.kkloud.online
+    - alloy-external.kkloud.nl
   tls:
    - secretName: alloy-tls
      hosts:
-       - alloy.kkloud.online
+       - alloy-external.kkloud.nl

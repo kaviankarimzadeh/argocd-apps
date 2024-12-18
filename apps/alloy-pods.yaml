@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: alloy
+  name: alloy-pods
   namespace: argocd
 spec:
   project: default
@@ -10,13 +10,16 @@ spec:
       targetRevision: 0.3.2
       chart: alloy
       helm:
-        releaseName: alloy
+        releaseName: alloy-pods
         valueFiles:
         - values.yaml
-        - $values/values/alloy.yaml
+        - $values/values/alloy-pods.yaml
     - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
       targetRevision: main
       ref: values
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      path: ./k8s-stuff/alloy-pods.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: collectors
