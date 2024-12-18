@@ -6,11 +6,11 @@ ingress:
   path: /
   pathType: Prefix
   hosts:
-    - grafana.kkloud.online
+    - grafana.kkloud.nl
   tls:
    - secretName: grafana-tls
      hosts:
-       - grafana.kkloud.online
+       - grafana.kkloud.nl
 
 resources:
   limits:
