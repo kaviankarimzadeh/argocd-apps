@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alloy-metrics
+  namespace: collectors
+data:
+  config.alloy: |
+  
+    discovery.kubernetes "k8s_pods" {
+        role = "pod"
+    }
+
+    prometheus.scrape "pods" {
+        targets    = discovery.kubernetes.k8s_pods.targets
+        forward_to = [prometheus.remote_write.local.receiver]
+    }
+
+    prometheus.remote_write "local" {
+        endpoint {
+            url = "http://mimir-distributed-gateway.monitoring/api/v1/push"
+        }
+    }
