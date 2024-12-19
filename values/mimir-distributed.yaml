@@ -36,7 +36,7 @@ gateway:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
-      - host: mimir.kkloud.online
+      - host: mimir.kkloud.nl
         paths:
           - path: /
             pathType: Prefix
