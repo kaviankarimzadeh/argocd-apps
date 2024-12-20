@@ -13,6 +13,10 @@ spec:
         releaseName: kube-state-metrics
         valueFiles:
         - values.yaml
+        - $values/values/kube-state-metrics.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
