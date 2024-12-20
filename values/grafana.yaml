@@ -21,7 +21,9 @@ resources:
 
 persistence:
   type: pvc
-  enabled: false
+  enabled: true
+  storageClassName: ceph-block
+  size: 1Gi
 
 admin:
   existingSecret: "grafana-credentials"
