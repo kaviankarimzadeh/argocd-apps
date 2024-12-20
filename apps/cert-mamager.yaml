@@ -5,17 +5,23 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: registry-1.docker.io/kaviankarimzadeh
-    targetRevision: v1.16.1
-    chart: cert-manager
-    helm:
-      parameters:
-      - name: 'crds.enabled'
-        value: 'true'
-      - name: 'crds.keep'
-        value: 'true'
-      releaseName: cert-manager
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: v1.16.1
+      chart: cert-manager
+      helm:
+        parameters:
+        - name: 'crds.enabled'
+          value: 'true'
+        - name: 'crds.keep'
+          value: 'true'
+        releaseName: cert-manager
+        valueFiles:
+        - values.yaml
+        - $values/values/cert-manager.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager
