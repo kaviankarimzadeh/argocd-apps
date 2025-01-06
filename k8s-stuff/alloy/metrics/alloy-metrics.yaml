@@ -5,14 +5,34 @@ metadata:
   namespace: collectors
 data:
   config.alloy: |
-  
     discovery.kubernetes "k8s_pods" {
+      role = "pod"
+      selectors {
         role = "pod"
+        field = "spec.nodeName=" + coalesce(sys.env("HOSTNAME"), constants.hostname)
+      }
     }
 
-    prometheus.scrape "pods" {
-        targets    = discovery.kubernetes.k8s_pods.targets
-        forward_to = [prometheus.remote_write.local.receiver]
+    discovery.relabel "pod_metrics" {
+      targets = discovery.kubernetes.k8s_pods.targets
+
+      rule {
+        source_labels = ["__meta_kubernetes_pod_label_metrics_path"]
+        action = "replace"
+        target_label = "__metrics_path__"
+      }
+
+      rule {
+        source_labels = ["__meta_kubernetes_pod_name"]
+        action = "replace"
+        target_label = "pod_name"
+      }
+    }
+
+    prometheus.scrape "pod_metrics" {
+      targets    = discovery.relabel.pod_metrics.targets
+      forward_to = [prometheus.remote_write.local.receiver]
+      scrape_interval = "30s"
     }
 
     prometheus.remote_write "local" {
