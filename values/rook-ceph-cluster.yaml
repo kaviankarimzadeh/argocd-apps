@@ -28,11 +28,17 @@ cephClusterSpec:
     useAllNodes: false
     useAllDevices: false
     nodes:
-      - name: "kube-worker0"
-        deviceFilter: ^sd[b].* #everything except sda
       - name: "kube-worker1"
         deviceFilter: ^sd[b].* #everything except sda
       - name: "kube-worker2"
+        deviceFilter: ^sd[b].* #everything except sda
+      - name: "kube-worker3"
+        deviceFilter: ^sd[b].* #everything except sda
+      - name: "kube-worker4"
+        deviceFilter: ^sd[b].* #everything except sda
+      - name: "kube-worker5"
+        deviceFilter: ^sd[b].* #everything except sda
+      - name: "kube-worker6"
         deviceFilter: ^sd[b].* #everything except sda
 
 cephBlockPools:
