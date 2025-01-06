@@ -6,7 +6,7 @@ global:
 mimir:
   structuredConfig:
     limits:
-      compactor_blocks_retention_period: "1d" #retention for metrics
+      compactor_blocks_retention_period: "12m" #retention for metrics
     blocks_storage:
       backend: s3
       s3:
