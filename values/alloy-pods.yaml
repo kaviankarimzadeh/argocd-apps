@@ -40,3 +40,7 @@ ingress:
   pathType: Prefix
   hosts:
     - alloy-pods.kkloud.nl
+  tls:
+   - secretName: alloy-pods-tls
+     hosts:
+       - alloy-pods.kkloud.nl

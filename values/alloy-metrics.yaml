@@ -38,3 +38,7 @@ ingress:
   pathType: Prefix
   hosts:
     - alloy-metrics.kkloud.nl
+  tls:
+   - secretName: alloy-metrics-tls
+     hosts:
+       - alloy-metrics.kkloud.nl
