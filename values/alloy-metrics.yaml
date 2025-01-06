@@ -33,6 +33,7 @@ ingress:
   ingressClassName: nginx
   annotations:
     nginx.ingress.kubernetes.io/force-ssl-redirect: 'true'
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   faroPort: 12345 
   pathType: Prefix
   hosts:
