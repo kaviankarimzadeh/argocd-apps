@@ -30,7 +30,7 @@ data:
     }
 
     prometheus.scrape "pod_metrics" {
-      targets    = discovery.relabel.pod_metrics.targets
+      targets    = discovery.relabel.pod_metrics.output
       forward_to = [prometheus.remote_write.local.receiver]
       scrape_interval = "30s"
     }
