@@ -39,8 +39,8 @@ ingress:
   faroPort: 12345 
   pathType: Prefix
   hosts:
-    - alloy-pods.kkloud.nl
+    - alloy-pods.achaemenid.nl
   tls:
    - secretName: alloy-pods-tls
      hosts:
-       - alloy-pods.kkloud.nl
+       - alloy-pods.achaemenid.nl

@@ -40,8 +40,8 @@ ingress:
   faroPort: 12347
   pathType: Prefix
   hosts:
-    - alloy-external.kkloud.nl
+    - alloy-external.achaemenid.nl
   tls:
    - secretName: alloy-tls
      hosts:
-       - alloy-external.kkloud.nl
+       - alloy-external.achaemenid.nl
