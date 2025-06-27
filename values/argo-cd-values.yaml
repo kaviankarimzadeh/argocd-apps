@@ -1,5 +1,5 @@
 global:
-  domain: argocd.kkloud.online
+  domain: argocd.achaemenid.nl
   logging:
     format: json
     level: debug
@@ -14,7 +14,7 @@ server:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       cert-manager.io/cluster-issuer: letsencrypt-prod
     ingressClassName: "nginx"
-    hostname: "argocd.kkloud.online"
+    hostname: "argocd.achaemenid.nl"
     path: /
     pathType: Prefix
     tls: true
