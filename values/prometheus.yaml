@@ -1,0 +1,24 @@
+server:
+  persistentVolume:
+    enabled: true
+    size: 4Gi
+    storageClass: "ceph-block"
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingressClassName: "nginx"
+    hosts:
+      - prometheus.achaemenid.nl
+    path: /
+    tls:
+      - secretName: prometheus-server-tls
+        hosts:
+          - prometheus.achaemenid.nl
+
+alertmanager:
+  enabled: false
+kube-state-metrics:
+  enabled: false
+prometheus-pushgateway:
+  enabled: false
