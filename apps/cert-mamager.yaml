@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
-      targetRevision: v1.16.1
+      targetRevision: v1.18.1
       chart: cert-manager
       helm:
         parameters:
