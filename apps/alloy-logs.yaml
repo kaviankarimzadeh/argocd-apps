@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: alloy-pods
+  name: alloy-logs
   namespace: argo-cd
 spec:
   project: default
@@ -10,10 +10,10 @@ spec:
       targetRevision: 1.1.2
       chart: alloy
       helm:
-        releaseName: alloy-pods
+        releaseName: alloy-logs
         valueFiles:
         - values.yaml
-        - $values/values/alloy-pods.yaml
+        - $values/values/alloy-logs.yaml
     - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
       targetRevision: main
       ref: values
