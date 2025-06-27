@@ -151,10 +151,10 @@ ingress:
       # nginx.ingress.kubernetes.io/server-snippet: |
       #   proxy_ssl_verify off;
     host:
-      name: rook-ceph.kkloud.nl
+      name: rook-ceph.achaemenid.nl
       path: "/"
     tls:
     - hosts:
-        - rook-ceph.kkloud.nl
+        - rook-ceph.achaemenid.nl
       secretName: rook-ceph-tls
     ingressClassName: nginx
