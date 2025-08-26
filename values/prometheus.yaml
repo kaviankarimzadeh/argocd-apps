@@ -1,7 +1,8 @@
 server:
+  retention: "5d"
   persistentVolume:
     enabled: true
-    size: 4Gi
+    size: 6Gi
     storageClass: "ceph-block"
   ingress:
     enabled: true
