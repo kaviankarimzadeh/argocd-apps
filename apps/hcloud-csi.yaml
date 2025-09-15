@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hcloud-csi
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: 2.17.0
+      chart: hcloud-csi
+      helm:
+        releaseName: hcloud-csi
+        valueFiles:
+        - values.yaml
+        - $values/values/hcloud-csi.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: hcloud-csi
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true

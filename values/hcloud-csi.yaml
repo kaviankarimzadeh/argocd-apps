@@ -1,0 +1,13 @@
+controller:
+  hcloudToken:
+    existingSecret:
+      name: hcloud
+      key: token
+
+metrics:
+  enabled: false
+
+storageClasses:
+  - name: hcloud-volumes
+    defaultStorageClass: true
+    reclaimPolicy: Delete
