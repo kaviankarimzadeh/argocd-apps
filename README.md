@@ -4,8 +4,8 @@ https://artifacthub.io/packages/helm/argo/argo-cd
 
 ```
 {
-    wget https://github.com/argoproj/argo-helm/releases/download/argo-cd-8.1.1/argo-cd-8.1.1.tgz
-    tar xzvf argo-cd-8.1.1.tgz
+    wget https://github.com/argoproj/argo-helm/releases/download/argo-cd-8.3.7/argo-cd-8.3.7.tgz
+    tar xzvf argo-cd-8.3.7.tgz
     cd argo-cd
 }
 ```
@@ -27,7 +27,7 @@ metadata:
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
-  enableOCI: true
+  enableOCI: "true"
   name: docker
   project: default
   type: helm
