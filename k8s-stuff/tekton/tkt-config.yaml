@@ -3,8 +3,6 @@ kind: TektonConfig
 metadata:
   finalizers:
     - tektonconfigs.operator.tekton.dev
-  labels:
-    operator.tekton.dev/release-version: v0.77.0
   name: config
 spec:
   addon: {}
@@ -60,7 +58,7 @@ spec:
     openshift: {}
   profile: all
   pruner:
-    disabled: false
+    disabled: true
     keep: 100
     resources:
       - pipelinerun
