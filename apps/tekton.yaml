@@ -1,0 +1,21 @@
+## install operator
+## https://github.com/tektoncd/operator/releases
+## kubectl apply -f https://storage.googleapis.com/tekton-releases/operator/previous/v0.77.0/release.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tekton
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      path: ./k8s-stuff/tekton/
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tekton-pipelines
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true
