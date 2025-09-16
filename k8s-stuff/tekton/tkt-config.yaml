@@ -22,7 +22,7 @@ spec:
   config: {}
   dashboard:
     options: {}
-    readonly: false
+    readonly: true
   hub:
     options: {}
   pipeline:
