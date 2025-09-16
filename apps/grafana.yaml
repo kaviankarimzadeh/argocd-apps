@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
-      targetRevision: 9.2.9
+      targetRevision: 9.4.5
       chart: grafana
       helm:
         releaseName: grafana
