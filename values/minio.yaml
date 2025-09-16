@@ -5,7 +5,7 @@ deploymentUpdate:
   type: Recreate
 persistence:
   enabled: true
-  storageClass: "ceph-block"
+  storageClass: "hcloud-volumes"
   volumeName: ""
   accessMode: ReadWriteOnce
   size: 2Gi

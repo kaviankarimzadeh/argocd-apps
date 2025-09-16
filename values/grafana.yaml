@@ -22,7 +22,7 @@ resources:
 persistence:
   type: pvc
   enabled: true
-  storageClassName: ceph-block
+  storageClassName: hcloud-volumes
   size: 1Gi
 
 admin:

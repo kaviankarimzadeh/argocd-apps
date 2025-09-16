@@ -3,7 +3,7 @@ server:
   persistentVolume:
     enabled: true
     size: 6Gi
-    storageClass: "ceph-block"
+    storageClass: "hcloud-volumes"
   ingress:
     enabled: true
     annotations:

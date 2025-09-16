@@ -10,5 +10,5 @@ pgpool:
 
 persistence:
   enabled: true
-  storageClass: "ceph-block"
+  storageClass: "hcloud-volumes"
   size: 1Gi

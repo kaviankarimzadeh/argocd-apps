@@ -72,7 +72,7 @@ write:
   resources: {}
   persistence:
     size: 1Gi
-    storageClass: "ceph-block"
+    storageClass: "hcloud-volumes"
   extraEnvFrom:
     - secretRef:
         name: s3-credentials
@@ -84,7 +84,7 @@ read:
   resources: {}
   persistence:
     size: 1Gi
-    storageClass: "ceph-block"
+    storageClass: "hcloud-volumes"
   extraEnvFrom:
     - secretRef:
         name: s3-credentials
@@ -96,7 +96,7 @@ backend:
   resources: {}
   persistence:
     size: 1Gi
-    storageClass: "ceph-block"
+    storageClass: "hcloud-volumes"
   extraEnvFrom:
     - secretRef:
         name: s3-credentials
