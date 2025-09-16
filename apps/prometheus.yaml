@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
-      targetRevision: 27.22.0
+      targetRevision: 27.37.0
       chart: prometheus
       helm:
         releaseName: prometheus
