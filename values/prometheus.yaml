@@ -1,8 +1,8 @@
 server:
-  retention: "3d"
+  retention: "2d"
   persistentVolume:
     enabled: true
-    size: 6Gi
+    size: 10Gi
     storageClass: "hcloud-volumes"
   ingress:
     enabled: true
