@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
-      targetRevision: 3.12.2
+      targetRevision: 3.13.0
       chart: metrics-server
       helm:
         releaseName: metrics-server
