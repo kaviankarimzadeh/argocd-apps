@@ -1,0 +1,27 @@
+global:
+  edition: ce
+  gitlabVersion: "18.4.0"
+
+  ## https://docs.gitlab.com/charts/charts/globals#configure-host-settings
+  hosts:
+    domain: gitlab.achaemenid.nl
+
+  ## https://docs.gitlab.com/charts/charts/globals#configure-ingress-settings
+  ingress:
+    apiVersion: ""
+    configureCertmanager: false
+    useNewIngressForCerts: false
+    provider: nginx
+    # class:
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    enabled: true
+    tls:
+      enabled: true
+      secretName: gitlab-tls
+    path: /
+    pathType: Prefix
+
+  initialRootPassword:
+    secret: gitlab-initial-root-password
+    key: password
