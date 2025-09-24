@@ -26,6 +26,9 @@ global:
     secret: gitlab-initial-root-password
     key: password
 
+upgradeCheck:
+  enabled: false
+
 installCertmanager: false
 
 nginx-ingress: &nginx-ingress
