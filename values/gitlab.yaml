@@ -33,3 +33,6 @@ nginx-ingress: &nginx-ingress
 
 prometheus:
   install: false
+
+gitlab-runner:
+  install: false
