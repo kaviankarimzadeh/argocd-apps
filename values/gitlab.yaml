@@ -18,7 +18,7 @@ global:
     enabled: true
     tls:
       enabled: true
-      secretName: gitlab-tls
+      secretName: gitlab-secret-tls
     path: /
     pathType: Prefix
 
