@@ -1,8 +1,7 @@
 global:
   edition: ce
   gitlabVersion: "18.4.0"
-  gitaly:
-    enabled: false
+
   ## https://docs.gitlab.com/charts/charts/globals#configure-host-settings
   hosts:
     domain: gitlab.achaemenid.nl
