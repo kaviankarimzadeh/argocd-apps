@@ -27,3 +27,9 @@ global:
     key: password
 
 installCertmanager: false
+
+nginx-ingress: &nginx-ingress
+  enabled: false
+
+prometheus:
+  install: false
