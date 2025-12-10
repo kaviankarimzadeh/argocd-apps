@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: httpbin
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      path: ./k8s-stuff/httpbin
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: httpbin
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true
