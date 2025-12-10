@@ -12,6 +12,7 @@ spec:
       protocol: HTTPS
       port: 443
       hostname: httpbin.achaemenid.nl
+      type: ClusterIP
       tls:
         mode: Terminate
         certificateRefs:
