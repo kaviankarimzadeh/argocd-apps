@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kgateway
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: v2.1.1
+      chart: kgateway
+      helm:
+        releaseName: kgateway
+        valueFiles:
+        - values.yaml
+        - $values/values/kgateway.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      path: ./k8s-stuff/kgateway/gateway-api-crds/v1.4.0
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      path: ./k8s-stuff/kgateway/kgateway-crds/v2.1.1/templates
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kgateway-system
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true
