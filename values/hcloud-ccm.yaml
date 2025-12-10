@@ -4,6 +4,11 @@ env:
       secretKeyRef:
         name: hcloud
         key: token
+  HCLOUD_LOAD_BALANCERS_NAME: kgaeway-svc-lb
+  HCLOUD_LOAD_BALANCERS_LOCATION: nbg1
+  HCLOUD_LOAD_BALANCERS_NETWORK_ZONE: nbg1
+  HCLOUD_LOAD_BALANCERS_USE_PRIVATE_IP: false
+  HCLOUD_LOAD_BALANCERS_ENABLED: true
 
 monitoring:
   # When enabled, the hccm Pod will serve metrics on port :8233
