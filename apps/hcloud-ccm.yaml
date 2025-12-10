@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hcloud-ccm
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: 1.28.0
+      chart: hcloud-cloud-controller-manager
+      helm:
+        releaseName: hcloud-cloud-controller-manager
+        valueFiles:
+        - values.yaml
+        - $values/values/hcloud-ccm.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: hcloud-ccm
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true

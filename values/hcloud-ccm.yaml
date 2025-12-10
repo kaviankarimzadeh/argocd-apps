@@ -1,0 +1,32 @@
+env:
+  HCLOUD_TOKEN:
+    valueFrom:
+      secretKeyRef:
+        name: hcloud
+        key: token
+
+monitoring:
+  # When enabled, the hccm Pod will serve metrics on port :8233
+  enabled: false
+
+networking:
+  # If enabled, hcloud-ccm will be deployed with networking support.
+  enabled: true
+  # If networking is enabled, clusterCIDR must match the PodCIDR subnet your cluster has been configured with.
+  clusterCIDR: 10.244.0.0/20
+  network:
+    valueFrom:
+      secretKeyRef:
+        name: hcloud
+        key: network
+
+# Resource requests for the deployed hccm Pod.
+resources:
+  requests:
+    cpu: 100m
+    memory: 50Mi
+
+robot:
+  # Set to true to enable support for Robot (Dedicated) servers.
+  enabled: false
+

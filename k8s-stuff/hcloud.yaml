@@ -11,3 +11,13 @@ metadata:
   namespace: hcloud-csi
 stringData:
   token: "YOUR-TOKEN"
+---
+---
+#Create a read+write API token in the Hetzner Cloud Console.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hcloud
+  namespace: hcloud-ccm
+stringData:
+  token: "YOUR-TOKEN"
