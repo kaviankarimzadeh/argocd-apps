@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kgateway
+  name: kgateway-helm
   namespace: argo-cd
 spec:
   project: default
@@ -13,16 +13,10 @@ spec:
         releaseName: kgateway
         valueFiles:
         - values.yaml
-        - $values/values/kgateway.yaml
+        - $values/values/kgateway-helm.yaml
     - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
       targetRevision: main
       ref: values
-    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
-      targetRevision: main
-      path: ./k8s-stuff/kgateway/gateway-api-crds/v1.4.0
-    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
-      targetRevision: main
-      path: ./k8s-stuff/kgateway/kgateway-crds/v2.1.1/templates
   destination:
     server: https://kubernetes.default.svc
     namespace: kgateway-system
