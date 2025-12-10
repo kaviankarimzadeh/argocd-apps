@@ -15,3 +15,4 @@ spec:
       port: 9000
   selector:
     app: httpbin
+  type: ClusterIP
