@@ -4,8 +4,6 @@ env:
       secretKeyRef:
         name: hcloud
         key: token
-  HCLOUD_LOAD_BALANCERS_NAME:
-    value: "kgateway-svc-lb"
   HCLOUD_LOAD_BALANCERS_LOCATION:
     value: "nbg1"
   HCLOUD_LOAD_BALANCERS_USE_PRIVATE_IP:
