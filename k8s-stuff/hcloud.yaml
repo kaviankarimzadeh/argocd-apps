@@ -21,3 +21,4 @@ metadata:
   namespace: hcloud-ccm
 stringData:
   token: "YOUR-TOKEN"
+  network: "Private network ID" # curl -H "Authorization: Bearer $API_TOKEN" "https://api.hetzner.cloud/v1/networks"
