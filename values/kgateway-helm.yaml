@@ -29,7 +29,7 @@ discoveryNamespaceSelectors: []
 #      kgateway:
 #        name: shared-gwp
 #        namespace: kgateway-system
-gatewayClassParametersRefs:
-  kgateway:
-    name: kgateway-custom
-    namespace: kgateway-system
+# gatewayClassParametersRefs:
+#   kgateway:
+#     name: kgateway-custom
+#     namespace: kgateway-system
