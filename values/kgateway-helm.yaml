@@ -1,5 +1,35 @@
 controller:
+  replicaCount: 1
+  logLevel: debug
   image:
-    pullPolicy: "Always"
+    pullPolicy: "Alway"
+  # -- Configure the controller service.
+  service:
+    # -- Set the service type for the controller.
+    type: ClusterIP
+    # -- Set the service ports for gRPC and health endpoints.
+    ports:
+      grpc: 9977
+      health: 9093
+      metrics: 9092
   extraEnv:
     "KGW_ENABLE_GATEWAY_API_EXPERIMENTAL_FEATURES": "true"
+
+# -- List of namespace selectors (OR'ed): each entry can use 'matchLabels' or 'matchExpressions' (AND'ed within each entry if used together). Kgateway includes the selected namespaces in config discovery. For more information, see the docs https://kgateway.dev/docs/latest/install/advanced/#namespace-discovery.
+discoveryNamespaceSelectors: []
+
+# -- Map of GatewayClass names to GatewayParameters references that will be set on
+#    the default GatewayClasses managed by kgateway. Each entry must define both the
+#    name and namespace of the GatewayParameters resource.
+#    The default GatewayClasses managed by kgateway are:
+#    - kgateway
+#    - kgateway-waypoint
+#    Example:
+#    gatewayClassParametersRefs:
+#      kgateway:
+#        name: shared-gwp
+#        namespace: kgateway-system
+gatewayClassParametersRefs:
+  kgateway:
+    name: kgateway-custom
+    namespace: kgateway-system
