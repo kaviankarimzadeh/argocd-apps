@@ -7,7 +7,7 @@ env:
   HCLOUD_LOAD_BALANCERS_LOCATION:
     value: "nbg1"
   HCLOUD_LOAD_BALANCERS_USE_PRIVATE_IP:
-    value: "false"
+    value: "true"
   HCLOUD_LOAD_BALANCERS_ENABLED:
     value: "true"
 
