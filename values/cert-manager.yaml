@@ -27,3 +27,6 @@ config:
     # https://github.com/kubernetes/ingress-nginx/issues/11176
     # https://cert-manager.io/docs/releases/release-notes/release-notes-1.18/
     ACMEHTTP01IngressPathTypeExact: false
+  apiVersion: controller.config.cert-manager.io/v1alpha1
+  kind: ControllerConfiguration
+  enableGatewayAPI: true
