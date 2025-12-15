@@ -11,9 +11,7 @@ env:
   
   # LDAP server configuration
   ldapHost: "openldap-stack-ha.openldap.svc.cluster.local"  # Change this to your LDAP server's hostname or service name
-  LDAP_HOSTS: "openldap-stack-ha.openldap.svc.cluster.local"
   ldapBaseDn: "dc=achaemenid,dc=nl"
-  LDAP_BIND_DN: "cn=admin,dc=achaemenid,dc=nl"
   ldapUsername: "cn=admin,dc=achaemenid,dc=nl"
   ldapLoginAttr: "cn"
   ldapPort: "389"
