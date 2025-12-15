@@ -20,16 +20,4 @@ ltb-passwd:
   enabled : false
 
 phpldapadmin:
-  enabled: true
-  image:
-    repository: phpldapadmin/phpldapadmin
-    tag: "2.3.5"
-  env:
-    LDAP_HOST: "openldap-stack-ha.openldap.svc.cluster.local"
-    APP_DEBUG: "true"
-    LDAP_BASE_DN: "dc=achaemenid,dc=nl"
-    LDAP_LOGIN_ATTR: "cn"
-    LDAP_LOGIN_OBJECTCLASS: ""
-    LDAP_NAME: "OpenLDAP Server"
-    LDAP_PORT: "389"
-    LDAP_USERNAME: "cn=admin,dc=achaemenid,dc=nl"
+  enabled: false
