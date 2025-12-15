@@ -7,7 +7,7 @@ image:
 
 env:
   # Application configuration
-  appUrl: "http://phpldapadmin.openldap.svc.cluster.local:8080"
+  appUrl: "https://phpldapadmin.achaemenid.nl"
   
   # LDAP server configuration
   ldapHost: "openldap-stack-ha.openldap.svc.cluster.local"  # Change this to your LDAP server's hostname or service name
