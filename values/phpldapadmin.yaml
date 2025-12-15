@@ -9,6 +9,7 @@ replicaCount: 1
 image:
   repository: phpldapadmin/phpldapadmin
   tag: "2.1.4"
+  pullPolicy: IfNotPresent
 
 ingress:
   enabled: false
