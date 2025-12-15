@@ -41,7 +41,7 @@ phpldapadmin:
     repository: phpldapadmin/phpldapadmin
     tag: 2.1.4
   env:
-    PHPLDAPADMIN_LDAP_HOSTS: "openldap-stack-ha-headless.openldap.svc.cluster.local"
+    PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
     ldapHost: "openldap-stack-ha-headless.openldap.svc.cluster.local"
     ldapBaseDn: "dc=achaemenid,dc=nl"
     ldapUsername: "cn=admin,dc=achaemenid,dc=nl"
