@@ -1,0 +1,49 @@
+global:
+  # Your LDAP domain (can be "example.org" or explicit "dc=example,dc=org")
+  ldapDomain: "achaemenid.nl"
+  # Optional: Use existing secret instead of passwords above
+  existingSecret: "openldap-secrets"
+  # Secret should contain keys: LDAP_ADMIN_PASSWORD and LDAP_CONFIG_ADMIN_PASSWORD
+
+image:
+  repository: jpgouin/openldap
+  tag: 2.6.9-fix
+  pullPolicy: Always
+
+initSchema:
+  image: 
+    repository: debian
+    tag: 12-slim
+    pullPolicy: Always
+
+replicaCount: 1
+
+env:
+ LDAP_ORGANISATION: "My Organization"
+ LDAP_DOMAIN: "achaemenid.nl"
+
+
+replication:
+  enabled: false
+
+persistence:
+  enabled: false
+
+initTLSSecret:
+  tls_enabled: false
+
+ltb-passwd:
+  enabled : true
+  image:
+    tag: 5.2.3
+  ingress:
+    enabled: false
+
+phpldapadmin:
+  enabled: true
+  image:
+    tag: 2.1.4
+  env:
+    PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
+  ingress:
+    enabled: false

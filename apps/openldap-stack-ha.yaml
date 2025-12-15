@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openldap-stack-ha
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: 4.3.3
+      chart: openldap-stack-ha
+      helm:
+        releaseName: openldap-stack-ha
+        valueFiles:
+        - values.yaml
+        - $values/values/openldap-stack-ha.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openldap
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true
