@@ -42,6 +42,7 @@ ltb-passwd:
 phpldapadmin:
   enabled: true
   image:
+    repository: phpldapadmin/phpldapadmin
     tag: 2.1.4
   env:
     PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
