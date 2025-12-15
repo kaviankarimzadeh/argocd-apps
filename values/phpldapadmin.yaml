@@ -20,3 +20,6 @@ env:
 secret:
   existingSecret: "openldap-secrets"
   ldapPasswordKey: "LDAP_ADMIN_PASSWORD"
+
+ingress:
+  enabled: false
