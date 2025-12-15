@@ -5,6 +5,8 @@ global:
   existingSecret: "openldap-secrets"
   # Secret should contain keys: LDAP_ADMIN_PASSWORD and LDAP_CONFIG_ADMIN_PASSWORD
 
+logLevel: debug
+
 replicaCount: 1
 
 replication:
