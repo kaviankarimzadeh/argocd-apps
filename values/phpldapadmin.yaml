@@ -10,6 +10,7 @@ image:
   repository: phpldapadmin/phpldapadmin
   tag: "2.1.4"
   pullPolicy: IfNotPresent
+  pullSecrets: []
 
 ingress:
   enabled: false
