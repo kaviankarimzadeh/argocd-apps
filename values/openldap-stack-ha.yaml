@@ -41,14 +41,15 @@ phpldapadmin:
     repository: phpldapadmin/phpldapadmin
     tag: "2.1.4"
   env:
-    PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
-    PHPLDAPADMIN_TRUST_PROXY_SSL: "false"
-    ldapHost: "openldap-stack-ha-headless.openldap.svc.cluster.local"
-    ldapBaseDn: "dc=achaemenid,dc=nl"
-    ldapUsername: "cn=admin,dc=achaemenid,dc=nl"
-    ldapLoginAttr: "cn"
-    ldapPort: "389"
-    ldapName: "OpenLDAP Server"
+    PHPLDAPADMIN_HTTPS: 'false'
+    PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: 'never'
+    PHPLDAPADMIN_TRUST_PROXY_SSL: 'false'
+    ldapBaseDn: dc=achaemenid,dc=nl
+    ldapHost: openldap-stack-ha-headless.openldap.svc.cluster.local
+    ldapPort: '389'
+    ldapLoginAttr: cn
+    ldapName: OpenLDAP Server
+    ldapUsername: cn=admin,dc=achaemenid,dc=nl
   secret:
     existingSecret: "openldap-secrets"  # Change this to your secret name
     ldapPasswordKey: "LDAP_ADMIN_PASSWORD"  # Change this to your secret key if different
