@@ -1,0 +1,14 @@
+env:
+  PHPLDAPADMIN_LDAP_HOSTS: "openldap-stack-ha-headless.openldap.svc.cluster.local"
+  PHPLDAPADMIN_HTTPS: "false"
+  PHPLDAPADMIN_TRUST_PROXY_SSL: "false"
+
+## Number of phpLDAPadmin images
+replicaCount: 1
+
+image:
+  repository: phpldapadmin/phpldapadmin
+  tag: "2.1.4"
+
+ingress:
+  enabled: false
