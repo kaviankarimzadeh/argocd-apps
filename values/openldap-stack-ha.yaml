@@ -36,20 +36,4 @@ ltb-passwd:
   enabled : false
 
 phpldapadmin:
-  enabled: true
-  image:
-    repository: phpldapadmin/phpldapadmin
-    tag: "2.1.4"
-  env:
-    PHPLDAPADMIN_HTTPS: 'false'
-    PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: 'never'
-    PHPLDAPADMIN_TRUST_PROXY_SSL: 'false'
-    PHPLDAPADMIN_LDAP_HOSTS: "#PYTHON2BASH:[{'openldap-stack-ha.openldap': [{'server': [{'tls': False},{'port':389}]},{'login': [{'bind_id': 'cn=admin,dc=achaemenid,dc=nl'}]}]}]"
-    ldapBaseDn: dc=achaemenid,dc=nl
-    ldapHost: openldap-stack-ha-headless.openldap.svc.cluster.local
-    ldapPort: '389'
-    ldapLoginAttr: cn
-    ldapName: OpenLDAP Server
-    ldapUsername: cn=admin,dc=achaemenid,dc=nl
-  ingress:
-    enabled: false
+  enabled: false
