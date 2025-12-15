@@ -23,7 +23,7 @@ phpldapadmin:
   enabled: true
   image:
     repository: phpldapadmin/phpldapadmin
-    tag: "2.1.5"
+    tag: "2.3.5"
   env:
     LDAP_HOST: "openldap-stack-ha.openldap.svc.cluster.local"
     APP_DEBUG: "true"
