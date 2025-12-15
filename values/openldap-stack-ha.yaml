@@ -39,7 +39,7 @@ phpldapadmin:
   enabled: true
   image:
     repository: phpldapadmin/phpldapadmin
-    tag: 2.1.4
+    tag: "2.1.4"
   env:
     PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
     ldapHost: "openldap-stack-ha-headless.openldap.svc.cluster.local"
@@ -48,5 +48,8 @@ phpldapadmin:
     ldapLoginAttr: "cn"
     ldapPort: "389"
     ldapName: "OpenLDAP Server"
+  secret:
+    existingSecret: "openldap-secrets"  # Change this to your secret name
+    ldapPasswordKey: "LDAP_ADMIN_PASSWORD"  # Change this to your secret key if different
   ingress:
     enabled: false
