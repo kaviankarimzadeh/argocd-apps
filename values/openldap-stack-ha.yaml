@@ -10,18 +10,7 @@ image:
   tag: 2.6.9-fix
   pullPolicy: Always
 
-initSchema:
-  image: 
-    repository: debian
-    tag: 12-slim
-    pullPolicy: Always
-
 replicaCount: 1
-
-env:
- LDAP_ORGANISATION: "My Organization"
- LDAP_DOMAIN: "achaemenid.nl"
-
 
 replication:
   enabled: false
