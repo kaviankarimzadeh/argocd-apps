@@ -4,6 +4,19 @@ global:
   # Optional: Use existing secret instead of passwords above
   existingSecret: "openldap-secrets"
   # Secret should contain keys: LDAP_ADMIN_PASSWORD and LDAP_CONFIG_ADMIN_PASSWORD
+  adminUser: "admin"
+  configUser: "admin"
+  ldapPort: 389
+  sslLdapPort: 636
+
+env:
+ BITNAMI_DEBUG: "false"
+ LDAP_LOGLEVEL: "256"
+ LDAP_REQUIRE_TLS: "false"
+ LDAPTLS_REQCERT: "never"
+ LDAP_ENABLE_TLS: "no"
+ LDAP_SKIP_DEFAULT_TREE: "no"
+ LDAP_ALLOW_ANON_BINDING: 'no'
 
 image:
   repository: jpgouin/openldap
