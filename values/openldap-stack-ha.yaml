@@ -33,11 +33,7 @@ initTLSSecret:
   tls_enabled: false
 
 ltb-passwd:
-  enabled : true
-  image:
-    tag: 5.2.3
-  ingress:
-    enabled: false
+  enabled : false
 
 phpldapadmin:
   enabled: true
@@ -45,6 +41,11 @@ phpldapadmin:
     repository: phpldapadmin/phpldapadmin
     tag: 2.1.4
   env:
-    PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
+    ldapHost: "openldap-stack-ha-headless.openldap.svc.cluster.local"
+    ldapBaseDn: "dc=achaemenid,dc=nl"
+    ldapUsername: "cn=admin,dc=achaemenid,dc=nl"
+    ldapLoginAttr: "cn"
+    ldapPort: "389"
+    ldapName: "OpenLDAP Server"
   ingress:
     enabled: false
