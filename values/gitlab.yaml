@@ -8,12 +8,24 @@ global:
 
   ## https://docs.gitlab.com/charts/charts/globals#configure-ingress-settings
   ingress:
+    apiVersion: ""
+    configureCertmanager: false
+    useNewIngressForCerts: false
+    provider: nginx
+    class: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
     enabled: false
+    tls:
+      enabled: false
+      secretName: gitlab-secret-tls
+    path: /
+    pathType: Prefix
 
   initialRootPassword:
     secret: gitlab-initial-root-password
     key: password
-
+    
   appConfig:
     omniauth:
       enabled: true
