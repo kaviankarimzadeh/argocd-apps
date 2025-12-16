@@ -8,23 +8,24 @@ global:
 
   ## https://docs.gitlab.com/charts/charts/globals#configure-ingress-settings
   ingress:
-    apiVersion: ""
-    configureCertmanager: false
-    useNewIngressForCerts: false
-    provider: nginx
-    class: nginx
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-    enabled: true
-    tls:
-      enabled: true
-      secretName: gitlab-secret-tls
-    path: /
-    pathType: Prefix
+    enabled: false
 
   initialRootPassword:
     secret: gitlab-initial-root-password
     key: password
+
+  appConfig:
+    omniauth:
+      enabled: true
+      autoSignInWithProvider: null  # Set to 'openid_connect' to auto-redirect
+      allowSingleSignOn:
+        - openid_connect
+      blockAutoCreatedUsers: true  # Set true to require admin approval
+      autoLinkUser:
+        - openid_connect
+      providers:
+        - secret: gitlab-oidc-secret  # Kubernetes secret name
+          key: provider               # Key in the secret
 
 upgradeCheck:
   enabled: false
