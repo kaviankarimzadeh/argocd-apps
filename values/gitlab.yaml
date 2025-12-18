@@ -15,7 +15,7 @@ global:
     class: nginx
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-    enabled: true
+    enabled: false
     tls:
       enabled: false
       secretName: gitlab-secret-tls
@@ -28,7 +28,7 @@ global:
     
   appConfig:
     omniauth:
-      enabled: true
+      enabled: false
       autoSignInWithProvider: null  # Set to 'openid_connect' to auto-redirect
       allowSingleSignOn:
         - openid_connect
