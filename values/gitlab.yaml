@@ -15,7 +15,7 @@ global:
     class: nginx
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-    enabled: false
+    enabled: true
     tls:
       enabled: false
       secretName: gitlab-secret-tls
