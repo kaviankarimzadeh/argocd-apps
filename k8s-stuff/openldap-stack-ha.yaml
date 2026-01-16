@@ -45,7 +45,7 @@ spec:
 
 
 # cat > admin-user.ldif <<EOF
-# dn: cn=admin,ou=users,dc=achaemenid,dc=nl
+# dn: cn=admin,dc=achaemenid,dc=nl
 # objectClass: inetOrgPerson
 # objectClass: simpleSecurityObject
 # objectClass: posixAccount
