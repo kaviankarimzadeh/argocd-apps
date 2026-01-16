@@ -28,3 +28,40 @@ spec:
   - backendRefs:
     - name: phpldapadmin
       port: 8080
+---
+# ldapsearch -Y EXTERNAL -H ldapi:/// \
+#   -b "dc=achaemenid,dc=nl" \
+#   "(objectClass=inetOrgPerson)" \
+#   dn uid cn mail
+
+
+# slappasswd
+
+
+# slappasswd
+# New password: 
+# Re-enter new password: 
+# {SSHA}m9Y7OQ7t5u/abmz4nDBaQKWD1/2wb4sk
+
+
+# cat > admin-user.ldif <<EOF
+# dn: cn=admin,ou=users,dc=achaemenid,dc=nl
+# objectClass: inetOrgPerson
+# objectClass: simpleSecurityObject
+# objectClass: posixAccount
+# cn: admin
+# sn: admin
+# uid: admin
+# uidNumber: 9999
+# gidNumber: 9999
+# homeDirectory: /home/admin
+# loginShell: /bin/bash
+# userPassword: {SSHA}m9Y7OQ7t5u/abmz4nDBaQKWD1/2wb4sk
+# mail: admin@achaemenid.nl
+# EOF
+
+# ldapadd -Y EXTERNAL -H ldapi:/// -f admin-user.ldif
+
+# login:
+# admin
+# password
