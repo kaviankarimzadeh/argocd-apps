@@ -65,3 +65,7 @@ spec:
 # login:
 # admin
 # password
+
+
+# # check with TCPRoute
+# ldapsearch -H ldap://91.98.0.225:389 -D "cn=admin,dc=achaemenid,dc=nl" -W -b "dc=achaemenid,dc=nl"  "(objectClass=inetOrgPerson)" dn uid cn mail
