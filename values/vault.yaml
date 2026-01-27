@@ -44,7 +44,7 @@ server:
     enabled: false
 
   ha:
-    enabled: true
+    enabled: false
     replicas: 3
     raft:
       enabled: false
