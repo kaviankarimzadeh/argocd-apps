@@ -1,5 +1,5 @@
 global:
-  enabled: true
+  enabled: false
 
 injector:
   enabled: false
@@ -41,7 +41,7 @@ server:
     enabled: false
 
   standalone:
-    enabled: false
+    enabled: true
 
   ha:
     enabled: false
