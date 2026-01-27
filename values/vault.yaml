@@ -5,6 +5,10 @@ injector:
   enabled: false
   authPath: "auth/kubernetes"
 
+
+ui:
+  enabled: true #added for standalone
+
 server:
   enabled: true #added for standalone
 
