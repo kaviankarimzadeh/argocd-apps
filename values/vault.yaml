@@ -8,18 +8,18 @@ injector:
 server:
   enabled: true
 
-  volumes:
-    - name: userconfig-vault-storage-config
-      secret:
-        defaultMode: 420
-        secretName: vault-storage-config
+  # volumes:
+  #   - name: userconfig-vault-storage-config
+  #     secret:
+  #       defaultMode: 420
+  #       secretName: vault-storage-config
 
-  volumeMounts:
-    - mountPath: /vault/userconfig/vault-storage-config
-      name: userconfig-vault-storage-config
-      readOnly: true
+  # volumeMounts:
+  #   - mountPath: /vault/userconfig/vault-storage-config
+  #     name: userconfig-vault-storage-config
+  #     readOnly: true
 
-  extraArgs: "-config=/vault/userconfig/vault-storage-config/config.hcl"
+  # extraArgs: "-config=/vault/userconfig/vault-storage-config/config.hcl"
 
   ingress:
     enabled: false
