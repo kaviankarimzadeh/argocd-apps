@@ -2,7 +2,7 @@ global:
   enabled: false
 
 injector:
-  enabled: true
+  enabled: false
   authPath: "auth/kubernetes"
 
 server:

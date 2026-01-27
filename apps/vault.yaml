@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
-      targetRevision: 0.29.1
+      targetRevision: 0.32.0
       chart: vault
       helm:
         releaseName: vault
