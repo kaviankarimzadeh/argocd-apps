@@ -6,7 +6,7 @@ injector:
   authPath: "auth/kubernetes"
 
 server:
-  enabled: true
+  enabled: true #added for standalone
 
   # volumes:
   #   - name: userconfig-vault-storage-config
@@ -38,13 +38,17 @@ server:
          - vault.kkloud.nl
 
   dataStorage:
-    enabled: false
+    enabled: true #added for standalone
+    size: 1Gi #added for standalone
+    mountPath: "/vault/data" #added for standalone
+    storageClass: null #added for standalone
+    accessMode: ReadWriteOnce #added for standalone
 
   standalone:
-    enabled: true
+    enabled: true #added for standalone
 
   ha:
-    enabled: false
+    enabled: false #changed for standalone
     replicas: 3
     raft:
       enabled: false
