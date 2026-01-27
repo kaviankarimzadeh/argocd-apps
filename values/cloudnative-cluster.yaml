@@ -1,0 +1,55 @@
+version:
+  postgresql: "16"
+  timescaledb: "2.15"
+  postgis: "3.4"
+
+###
+# -- Cluster mode of operation. Available modes:
+# * `standalone` - default mode. Creates new or updates an existing CNPG cluster.
+# * `replica` - Creates a replica cluster from an existing CNPG cluster.
+# * `recovery` - Same as standalone but creates a cluster from a backup, object store or via pg_basebackup.
+mode: standalone
+
+recovery:
+  method: backup
+
+cluster:
+  instances: 1
+  storage:
+    size: 1Gi
+    storageClass: ""
+  walStorage:
+    enabled: false
+    size: 1Gi
+    storageClass: ""
+  monitoring:
+    enabled: false
+  roles:
+    - name: vault
+      ensure: present
+      comment: Vault database user
+      login: true
+      superuser: false
+      passwordSecret:
+        name: vault-db-secret
+
+backups:
+  enabled: false
+
+
+# Database management configuration
+databases:
+  - name: vault
+    ensure: present
+    owner: vault
+    encoding: UTF8
+    connectionLimit: -1
+    databaseReclaimPolicy: retain
+    schemas:
+      - name: vault
+        owner: vault
+        ensure: present
+    extensions:
+      - name: uuid-ossp
+        ensure: present
+        schema: public
