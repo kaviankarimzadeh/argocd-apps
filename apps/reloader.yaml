@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: reloader
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: 2.2.7
+      chart: reloader
+      helm:
+        releaseName: reloader
+        valueFiles:
+        - values.yaml
+        - $values/values/reloader.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: reloader
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true

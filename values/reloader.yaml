@@ -1,0 +1,10 @@
+reloader:
+  autoReloadAll: false
+  reloadOnCreate: false
+  reloadOnDelete: false
+  syncAfterRestart: false
+  reloadStrategy: default # Set to default, env-vars or annotations
+  watchGlobally: true
+  enableHA: false
+  deployment:
+    replicas: 1
