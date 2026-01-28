@@ -1,0 +1,29 @@
+replicaCount: 1
+installCRDs: true
+crds:
+  createClusterExternalSecret: false
+  createClusterSecretStore: true
+  createSecretStore: true
+  createClusterGenerator: false
+  createClusterPushSecret: false
+  createPushSecret: false
+  conversion:
+    enabled: false
+  unsafeServeV1Beta1: false
+
+openshiftFinalizers: false
+
+
+processClusterExternalSecret: false
+processClusterPushSecret: false
+processClusterStore: true
+processSecretStore: true
+processClusterGenerator: false
+processPushSecret: false
+
+metrics:
+  service:
+    enabled: false
+
+grafanaDashboard:
+  enabled: false
