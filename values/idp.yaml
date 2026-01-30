@@ -220,7 +220,7 @@ rbac:
           processing:
             description: "processing team"
             ldapGroups:
-              - cn=processing,ou=groups,dc=achaemenid,dc=nl
+              - cn=proset,ou=groups,dc=achaemenid,dc=nl
             roles:
               - deployer
               - viewer
@@ -228,7 +228,7 @@ rbac:
           channels:
             description: "Channels Team"
             ldapGroups:
-              - cn=channels,ou=groups,dc=achaemenid,dc=nl
+              - cn=core,ou=groups,dc=achaemenid,dc=nl
             roles:
               - deployer
               - viewer
