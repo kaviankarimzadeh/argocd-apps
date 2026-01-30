@@ -39,15 +39,15 @@ backups:
 
 # Database management configuration
 databases:
-  - name: vault
+  - name: idp
     ensure: present
-    owner: vault
+    owner: idp
     encoding: UTF8
     connectionLimit: -1
     databaseReclaimPolicy: retain
     schemas:
-      - name: vault
-        owner: vault
+      - name: idp
+        owner: idp
         ensure: present
     extensions:
       - name: uuid-ossp
