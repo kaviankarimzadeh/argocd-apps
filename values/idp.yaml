@@ -208,8 +208,8 @@ rbac:
     # ==========================================================================
     
     departments:
-      platform:
-        description: "Platform Department"
+      it:
+        description: "IT Department"
         teams:
           cloud:
             description: "cloud team"
@@ -217,29 +217,40 @@ rbac:
               - cn=cloud,ou=groups,dc=achaemenid,dc=nl
             roles:
               - admin
-          processing:
-            description: "processing team"
+      processing:
+        description: "Processing Department - Core banking operations"
+        teams:
+          proset:
+            description: "Proset Team - Settlement processing"
             ldapGroups:
               - cn=proset,ou=groups,dc=achaemenid,dc=nl
             roles:
               - deployer
               - viewer
               - promoter
-          channels:
-            description: "Channels Team"
+
+      channels:
+        description: "Channel Department - Customer-facing applications"
+        teams:
+          setzberg:
+            description: "setzberg Team - setzberg banking apps"
             ldapGroups:
               - cn=core,ou=groups,dc=achaemenid,dc=nl
             roles:
               - deployer
               - viewer
               - promoter
-          operations:
-            description: "Operations Team"
+          
+      operations:
+        description: "Operations Department - App Operations"
+        teams:
+          ops:
+            description: "Operations team - Responsible for UAT/PROD approvals and PROD merges"
             ldapGroups:
               - cn=operations,ou=groups,dc=achaemenid,dc=nl
             roles:
-              - ops
-              - viewer
+              - ops       # Can approve/reject MRs as Operations, can merge PROD
+              - viewer    # Read-only access to view applications
     
     # Global admin groups - admin access across ALL teams
     globalAdminGroups:
