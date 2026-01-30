@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: idp
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: 0.0.1
+      chart: idp
+      helm:
+        releaseName: idp
+        valueFiles:
+        - values.yaml
+        - $values/values/idp.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: idp-system
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true

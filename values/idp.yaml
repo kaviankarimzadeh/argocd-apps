@@ -1,0 +1,260 @@
+# -----------------------------------------------------------------------------
+# DEPLOYMENT
+# -----------------------------------------------------------------------------
+# Number of replicas. Use 2+ for production with PDB enabled.
+replicaCount: 1
+
+image:
+  # Container image repository
+  repository: kaviankarimzadeh/idp
+  # Image tag - defaults to Chart.appVersion if empty
+  tag: "v0.0.2"
+
+# -----------------------------------------------------------------------------
+# RESOURCES
+# -----------------------------------------------------------------------------
+# Resource requests and limits
+# Adjust based on your workload - these are conservative defaults
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# -----------------------------------------------------------------------------
+# HTTPROUTE (Gateway API - Istio, Envoy Gateway, etc.)
+# -----------------------------------------------------------------------------
+httpRoute:
+  enabled: false
+  # Parent gateway references
+  parentRefs:
+    - name: public-gw
+      namespace: kgateway-system
+  hostnames:
+    - idp.achaemendi.nl
+  # Routing rules (optional - defaults to / prefix)
+  rules:
+    - backendRefs:
+        - name: idp
+          port: 80
+
+# -----------------------------------------------------------------------------
+# AUTOSCALING
+# -----------------------------------------------------------------------------
+autoscaling:
+  enabled: false
+
+
+# -----------------------------------------------------------------------------
+# NETWORK POLICY
+# -----------------------------------------------------------------------------
+networkPolicy:
+  enabled: false
+
+# -----------------------------------------------------------------------------
+# DATABASE - PostgreSQL
+# -----------------------------------------------------------------------------
+# Option 1: Use bundled PostgreSQL (Bitnami subchart)
+postgresql:
+  enabled: false
+
+# Option 2: Use external PostgreSQL (when postgresql.enabled=false)
+externalDatabase:
+  host: ""
+  port: 5432
+  database: idp
+  # Use existing secret for credentials (recommended)
+  existingSecret: ""
+  existingSecretUsernameKey: "username"
+  existingSecretPasswordKey: "password"
+  # SSL mode: disable, require, verify-ca, verify-full
+  sslMode: "disable"
+
+# -----------------------------------------------------------------------------
+# DATABASE MIGRATIONS
+# -----------------------------------------------------------------------------
+# Run SQL migrations before deploying the application.
+# Migrations are embedded in the application image and run as a Helm hook Job.
+migrations:
+  # Enable database migrations (recommended for production)
+  enabled: true
+
+# -----------------------------------------------------------------------------
+# SECRETS
+# -----------------------------------------------------------------------------
+# RECOMMENDED: Use existingSecret for production
+# Create secret with: kubectl create secret generic idp-credentials \
+#   --from-literal=jwt-secret="$(openssl rand -base64 32)" \
+#   --from-literal=ldap-bind-pass="..." \
+#   --from-literal=git-token="glpat-..." \
+#   --from-literal=nexus-pass="..." \
+#   --from-literal=nexus-promote-pass="..." \
+#   --from-literal=jira-pass="..." \
+#   --from-literal=jira-token="..." \
+#   --from-literal=vault-test-token="hvs...." \
+#   --from-literal=vault-prod-token="hvs...." \
+#   --from-literal=argocd-test-token="..." \
+#   --from-literal=argocd-prod-token="..."
+existingSecret: "idp-credentials"
+
+# -----------------------------------------------------------------------------
+# APPLICATION CONFIGURATION
+# -----------------------------------------------------------------------------
+config:
+  # Server port
+  port: 8080
+  
+  # JWT token expiration (e.g., 4h, 8h, 24h)
+  # Shorter is more secure, longer is more convenient
+  jwtExpiration: "8h"
+  
+  # CORS allowed origins
+  corsOrigins:
+    - "https://idp.achaemendi.nl"
+
+  # ---------------------------------------------------------------------------
+  # LDAP Configuration
+  # ---------------------------------------------------------------------------
+  ldap:
+    # LDAP server hostname
+    host: "91.98.0.225"
+    # LDAP port (389 for LDAP, 636 for LDAPS)
+    port: 389
+    # Base DN for user searches
+    baseDN: "dc=achaemenid,dc=nl"
+    # Bind DN (service account)
+    bindDN: "cn=admin,dc=achaemenid,dc=nl"
+    # Bind password is in secrets.ldapBindPass
+
+  # ---------------------------------------------------------------------------
+  # ArgoCD Configuration
+  # ---------------------------------------------------------------------------
+  argocd:
+    # Test instance URL (for DIT/SIT/UAT stages)
+    testURL: "http://5.75.245.211:30091/"
+    # Production instance URL (for PROD stage)
+    # Falls back to testURL if not set
+    prodURL: "http://37.27.1.46:30093/"
+
+  # ---------------------------------------------------------------------------
+  # Nexus Configuration
+  # ---------------------------------------------------------------------------
+  nexus:
+    # Nexus server URL
+    url: "http://138.199.218.25:8081"
+    # Repository names
+    testRepo: "test"
+    prodRepo: "prod"
+    # Read-only user for browsing charts
+    user: "admin"
+    # User with write access for chart promotion
+    promoteUser: "admin"
+
+  # ---------------------------------------------------------------------------
+  # GitLab Configuration
+  # ---------------------------------------------------------------------------
+  git:
+    # GitLab server URL
+    url: "https://gitlab.achaemenid.nl"
+
+  # ---------------------------------------------------------------------------
+  # Jira Configuration (for PROD CAB approval)
+  # ---------------------------------------------------------------------------
+  jira:
+    # Jira server URL (leave empty to disable)
+    url: "https://jira.achaemenid.nl"
+    # Jira service account username
+    user: "admin"
+    # Jira statuses that indicate CAB approval (comma-separated)
+    cabApprovedStatuses: "Approved,Ready for Deployment"
+
+  # ---------------------------------------------------------------------------
+  # Vault Configuration (for secret path validation)
+  # ---------------------------------------------------------------------------
+  vault:
+    # Test Vault URL (for DIT/SIT/UAT stages)
+    testURL: "https://vault.achaemenid.nl"
+    # Production Vault URL (for PROD stage)
+    prodURL: "https://vault.achaemenid.nl"
+
+# -----------------------------------------------------------------------------
+# RBAC CONFIGURATION
+# -----------------------------------------------------------------------------
+rbac:
+  # Use existing ConfigMap (recommended for GitOps)
+  existingConfigMap: ""
+  # Key in the ConfigMap containing rbac.yaml
+  configMapKey: "rbac.yaml"
+  
+  # Inline RBAC configuration (used if existingConfigMap is empty)
+  # See config/rbac.yaml for full documentation
+  config: |
+    # ==========================================================================
+    # IDP RBAC Configuration
+    # ==========================================================================
+    # This configuration defines:
+    # 1. Organizational structure (departments → teams)
+    # 2. LDAP group mappings for each team
+    # 3. Role assignments per team
+    #
+    # Roles:
+    #   - admin: Full access to all features
+    #   - deployer: Can create and update services in DIT
+    #   - promoter: Can promote services through stages
+    #   - viewer: Read-only access
+    # ==========================================================================
+    
+    departments:
+      platform:
+        description: "Platform Department"
+        teams:
+          cloud:
+            description: "cloud team"
+            ldapGroups:
+              - cn=cloud,ou=groups,dc=achaemenid,dc=nl
+            roles:
+              - admin
+          processing:
+            description: "processing team"
+            ldapGroups:
+              - cn=processing,ou=groups,dc=achaemenid,dc=nl
+            roles:
+              - deployer
+              - viewer
+              - promoter
+          channels:
+            description: "Channels Team"
+            ldapGroups:
+              - cn=channels,ou=groups,dc=achaemenid,dc=nl
+            roles:
+              - deployer
+              - viewer
+              - promoter
+          operations:
+            description: "Operations Team"
+            ldapGroups:
+              - cn=operations,ou=groups,dc=achaemenid,dc=nl
+            roles:
+              - ops
+              - viewer
+    
+    # Global admin groups - admin access across ALL teams
+    globalAdminGroups:
+      - cn=cloud,ou=groups,dc=achaemenid,dc=nl
+    
+    # Global promoter groups - can promote for any team
+    globalPromoterGroups:
+      - cn=release-managers,ou=groups,dc=example,dc=com
+    
+    # Global viewer groups - read-only access to all
+    globalViewerGroups:
+      - cn=viewers,ou=groups,dc=example,dc=com
+    
+    settings:
+      # If true, users must belong to a configured group to login
+      # If false, any LDAP user can login with defaultRole
+      strictMode: true
+      # Default role for users not matching any team (only if strictMode=false)
+      defaultRole: viewer
