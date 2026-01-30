@@ -62,7 +62,7 @@ postgresql:
 
 # Option 2: Use external PostgreSQL (when postgresql.enabled=false)
 externalDatabase:
-  host: ""
+  host: "postgresql"
   port: 5432
   database: idp
   # Use existing secret for credentials (recommended)
