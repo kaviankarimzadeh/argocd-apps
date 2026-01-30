@@ -66,9 +66,9 @@ externalDatabase:
   port: 5432
   database: idp
   # Use existing secret for credentials (recommended)
-  existingSecret: ""
-  existingSecretUsernameKey: "username"
-  existingSecretPasswordKey: "password"
+  existingSecret: "postgresql-creds"
+  existingSecretUsernameKey: "idpUsername"
+  existingSecretPasswordKey: "userPasswordKey"
   # SSL mode: disable, require, verify-ca, verify-full
   sslMode: "disable"
 
