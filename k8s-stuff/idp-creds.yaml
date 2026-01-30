@@ -1,0 +1,13 @@
+# RECOMMENDED: Use existingSecret for production
+# Create secret with: kubectl create secret generic idp-credentials \
+#   --from-literal=jwt-secret="$(openssl rand -base64 32)" \
+#   --from-literal=ldap-bind-pass="..." \
+#   --from-literal=git-token="glpat-..." \
+#   --from-literal=nexus-pass="..." \
+#   --from-literal=nexus-promote-pass="..." \
+#   --from-literal=jira-pass="..." \
+#   --from-literal=jira-token="..." \
+#   --from-literal=vault-test-token="hvs...." \
+#   --from-literal=vault-prod-token="hvs...." \
+#   --from-literal=argocd-test-token="..." \
+#   --from-literal=argocd-prod-token="..."
