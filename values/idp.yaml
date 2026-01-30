@@ -27,7 +27,7 @@ resources:
 # HTTPROUTE (Gateway API - Istio, Envoy Gateway, etc.)
 # -----------------------------------------------------------------------------
 httpRoute:
-  enabled: false
+  enabled: true
   # Parent gateway references
   parentRefs:
     - name: public-gw
