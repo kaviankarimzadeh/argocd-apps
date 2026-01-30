@@ -34,7 +34,7 @@ httpRoute:
     - name: public-gw
       namespace: kgateway-system
   hostnames:
-    - idp.achaemendi.nl
+    - idp.achaemenid.nl
   # Routing rules (optional - defaults to / prefix)
   rules:
     - backendRefs:
