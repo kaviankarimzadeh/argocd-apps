@@ -9,6 +9,7 @@ image:
   repository: kaviankarimzadeh/idp
   # Image tag - defaults to Chart.appVersion if empty
   # tag: "v0.0.2"
+  pullPolicy: Always
 
 # -----------------------------------------------------------------------------
 # RESOURCES
