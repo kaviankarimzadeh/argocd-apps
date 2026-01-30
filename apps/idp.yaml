@@ -8,9 +8,9 @@ spec:
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
       targetRevision: 0.0.10
-      chart: idp
+      chart: idp-platform
       helm:
-        releaseName: idp
+        releaseName: idp-platform
         valueFiles:
         - values.yaml
         - $values/values/idp.yaml
