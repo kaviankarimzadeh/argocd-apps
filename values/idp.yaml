@@ -38,7 +38,7 @@ httpRoute:
   # Routing rules (optional - defaults to / prefix)
   rules:
     - backendRefs:
-        - name: idp
+        - name: idp-platform
           port: 80
 
 # -----------------------------------------------------------------------------
