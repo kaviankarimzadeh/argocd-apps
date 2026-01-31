@@ -2,7 +2,7 @@
 # DEPLOYMENT
 # -----------------------------------------------------------------------------
 # Number of replicas. Use 2+ for production with PDB enabled.
-replicaCount: 1
+# replicaCount: 1
 
 image:
   # Container image repository
@@ -19,6 +19,18 @@ podAnnotations:
   prometheus.io/scrape: "true"
   prometheus.io/port: "8080"
   prometheus.io/path: "/metrics"
+
+# -----------------------------------------------------------------------------
+# AUTOSCALING
+# -----------------------------------------------------------------------------
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  # Target CPU utilization percentage
+  targetCPUUtilizationPercentage: 70
+  # Target memory utilization percentage
+  targetMemoryUtilizationPercentage: 80
 
 # -----------------------------------------------------------------------------
 # RESOURCES
