@@ -11,3 +11,16 @@
 #   --from-literal=vault-prod-token="hvs...." \
 #   --from-literal=argocd-test-token="..." \
 #   --from-literal=argocd-prod-token="..."
+
+---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: postgresql-creds
+#   namespace: idp-system
+# type: Opaque
+# stringData:
+#   adminPasswordKey: ""
+#   userPasswordKey: ""
+#   replicationPasswordKey: ""
+#   idpUsername: "idp"
