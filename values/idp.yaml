@@ -12,6 +12,15 @@ image:
   pullPolicy: Always
 
 # -----------------------------------------------------------------------------
+# POD CONFIGURATION
+# -----------------------------------------------------------------------------
+# Pod annotations
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8080"
+  prometheus.io/path: "/metrics"
+
+# -----------------------------------------------------------------------------
 # RESOURCES
 # -----------------------------------------------------------------------------
 # Resource requests and limits
