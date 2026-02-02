@@ -179,7 +179,7 @@ config:
   # ---------------------------------------------------------------------------
   jira:
     # Jira server URL (leave empty to disable)
-    url: "https://jira.example.nl"
+    url: "https://jira.example.com"
     # Jira service account username
     user: "admin"
     # Jira statuses that indicate CAB approval (comma-separated)
