@@ -183,7 +183,7 @@ config:
     # Jira service account username
     user: "admin"
     # Jira statuses that indicate CAB approval (comma-separated)
-    cabApprovedStatuses: "Approved,Ready for Deployment"
+    cabApprovedStatuses: "Approved,Ready for Deployment,Post Deployments Report"
 
   # ---------------------------------------------------------------------------
   # Vault Configuration (for secret path validation)
