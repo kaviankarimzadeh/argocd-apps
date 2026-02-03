@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
-      targetRevision: 0.0.28
+      targetRevision: 0.0.29
       chart: idp-platform
       helm:
         releaseName: idp-platform
