@@ -29,3 +29,6 @@ admin:
   existingSecret: "grafana-credentials"
   userKey: admin-user
   passwordKey: admin-password
+
+env:
+  GF_FEATURE_TOGGLES_ENABLE: provisioning,kubernetesDashboards 
