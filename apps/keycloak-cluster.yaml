@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak-cluster
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: 26.5.2
+      chart: keycloak-cluster
+      helm:
+        releaseName: keycloak-cluster
+        valueFiles:
+        - values.yaml
+        - $values/values/keycloak-cluster.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: keycloak
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true

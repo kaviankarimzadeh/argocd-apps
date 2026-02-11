@@ -1,0 +1,19 @@
+# Keycloak Operator Helm Chart Values
+
+# CRD installation settings
+crds:
+  # Install the Keycloak CRD
+  keycloak:
+    enabled: true
+  # Install the KeycloakRealmImport CRD
+  keycloakRealmImport:
+    enabled: false
+
+# Operator image settings
+image:
+  repository: quay.io/keycloak/keycloak-operator
+  tag: "26.5.2"
+  pullPolicy: Always
+
+# Keycloak image used by the operator when creating Keycloak instances
+keycloakImage: quay.io/keycloak/keycloak:26.5.2

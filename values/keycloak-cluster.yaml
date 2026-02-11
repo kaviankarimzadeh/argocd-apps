@@ -1,0 +1,32 @@
+# =========================================================================
+# DATABASE CONFIGURATION
+# =========================================================================
+# Create DB secret (set to false if using existing secret)
+dbSecret:
+  create: false
+
+# =========================================================================
+# HOSTNAME CONFIGURATION
+# =========================================================================
+hostname:
+  strict: true
+  hostname: keycloak.achaemenid.nl
+  backchannelDynamic: false
+
+# =========================================================================
+# RESOURCE REQUIREMENTS (PRODUCTION)
+# =========================================================================
+resources:
+  requests:
+    cpu: 100m
+    memory: 1000Mi
+  limits:
+    cpu: 2000m
+    memory: 1500Gi
+
+# =========================================================================
+# ADMIN BOOTSTRAPPING
+# =========================================================================
+# Create admin secret (set to false if using existing secret)
+adminSecret:
+  create: false
