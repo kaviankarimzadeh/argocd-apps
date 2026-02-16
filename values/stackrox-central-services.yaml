@@ -90,3 +90,6 @@ scannerV4:
 monitoring:
  openshift:
    enabled: false
+
+system:
+  enablePodSecurityPolicies: false
