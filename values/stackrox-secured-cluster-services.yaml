@@ -1,12 +1,8 @@
-#imagePullSecrets: #use existing pull secret is not working! we should use username and password!
-  # useExisting:
-  # - rox-pull-secret
-
 clusterName: "hetzner"
 
 system:
   enablePodSecurityPolicies: false
-  
+
 scannerV4:
   disable: true
 

@@ -1,7 +1,3 @@
-#imagePullSecrets: #use existing pull secret is not working! we should use username and password!
-  # useExisting:
-  # - rox-pull-secret
-
 env:
   openshift: false
   istio: false   
