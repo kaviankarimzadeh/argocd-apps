@@ -1,43 +1,85 @@
-clusterName: "hetzner"
+clusterName: hetzner
 
-system:
-  enablePodSecurityPolicies: false
-
-scannerV4:
-  disable: true
+centralEndpoint: central.stackrox.svc:443
 
 env:
-  openshift: false
-  istio: false
+ openshift: false
+ istio: false
 
-admissionControl:
-  replicas: 1
-  resources:
-    requests:
-      memory: "100Mi"
-      cpu: "50m"
-    limits:
-      memory: "500Mi"
-      cpu: "500m"
-      
-collector:
-  resources:
-    requests:
-      memory: "100Mi"
-      cpu: "50m"
-    limits:
-      memory: "500Mi"
-      cpu: "500m"
+image:
+  registry: quay.io/stackrox-io
 
-monitoring:
-  openshift:
-    enabled: false
-  
 sensor:
   resources:
     requests:
+      memory: "1Gi"
+      cpu: "1"
+    limits:
+      memory: "2Gi"
+      cpu: "2"
+
+  endpoint: sensor.stackrox.svc:443
+
+admissionControl:
+  resources:
+    requests:
       memory: "100Mi"
       cpu: "50m"
     limits:
-      memory: "1000Mi"
+      memory: "500Mi"
+      cpu: "500m"
+
+  replicas: 1
+
+collector:
+  resources:
+    requests:
+      memory: "320Mi"
+      cpu: "50m"
+    limits:
+      memory: "1Gi"
+      cpu: "750m"
+
+
+  complianceResources:
+    requests:
+      memory: "10Mi"
+      cpu: "10m"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+
+  nodeScanningResources:
+    requests:
+      memory: "10Mi"
+      cpu: "10m"
+    limits:
+      memory: "500Mi"
+      cpu: "1"
+
+monitoring:
+ openshift:
+   enabled: false
+
+scanner:
+  disable: false
+  replicas: 1
+  logLevel: INFO
+  autoscaling:
+    disable: true
+
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "100m"
+    limits:
+      memory: "2Gi"
       cpu: "1000m"
+
+  dbResources:
+    limits:
+      cpu: "1000m"
+      memory: "2Gi"
+    requests:
+      cpu: "200m"
+      memory: "200Mi"

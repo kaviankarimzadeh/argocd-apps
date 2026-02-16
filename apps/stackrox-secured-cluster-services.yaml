@@ -10,10 +10,6 @@ spec:
       targetRevision: 400.9.2
       chart: stackrox-secured-cluster-services
       helm:
-        parameters:
-        # kubectl create secret generic rox-pull-secret --from-literal=username=username --from-literal=password=password
-        - name: 'imagePullSecrets.useExisting'
-          value: 'rox-pull-secret'
         releaseName: stackrox-secured-cluster-services
         valueFiles:
         - values.yaml

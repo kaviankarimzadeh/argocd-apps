@@ -1,16 +1,21 @@
+image:
+  registry: quay.io/stackrox-io
+
 env:
   openshift: false
-  istio: false   
-  platform: "default"
+  istio: false
+  platform: default
   offlineMode: false
-  proxyConfig: null
 
-system:
-  enablePodSecurityPolicies: false
 
 central:
   telemetry:
     enabled: false
+
+  # image:
+  #   registry: null
+  #   name: main
+  #   tag: 4.0.0
 
   adminPassword:
     generate: true
@@ -23,18 +28,13 @@ central:
       memory: "2Gi"
       cpu: "2000m"
 
-  exposure:
-    loadBalancer:
-      enabled: false
-
-    nodePort:
-      enabled: false
-
-    route:
-      enabled: false
-
   db:
     external: false
+
+    # image:
+    #   registry: null
+    #   name: central-db
+    #   tag: 4.0.0
 
     resources:
       requests:
@@ -51,62 +51,42 @@ central:
         size: 1Gi
       none: false
 
+scanner:
+  disable: false
+  replicas: 1
+  logLevel: INFO
+  autoscaling:
+    disable: true
+
+  resources:
+    requests:
+      memory: "150Mi"
+      cpu: "100m"
+    limits:
+      memory: "2Gi"
+      cpu: "2000m"
+
+  # image:
+  #   registry: null
+  #   name: scanner
+  #   tag: 2.3.2
+
+  # dbImage:
+  #   registry: null
+  #   name: scanner-db
+  #   tag: 2.3.2
+
+  dbResources:
+    limits:
+      cpu: 2
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 200Mi
+
 scannerV4:
   disable: true
 
-  image:
-    name: rhacs-scanner-v4-rhel8
-    tag: 4.9.2
-
-  indexer:
-    replicas: 1
-
-    autoscaling:
-      disable: true
-
-    # Resource settings for the indexer deployment.
-    resources:
-      requests:
-        memory: "150Mi"
-        cpu: "100m"
-      limits:
-        memory: "2Gi"
-        cpu: "2000m"
-
-  matcher:
-    replicas: 1
-
-    autoscaling:
-      disable: true
-
-    resources:
-      requests:
-        memory: "1Gi"
-        cpu: "100m"
-      limits:
-        memory: "2Gi"
-        cpu: "2000m"
-
-  db:
-    image:
-      name: rhacs-scanner-v4-db-rhel8
-      tag: 4.9.2
-
-    resources:
-      requests:
-        cpu: "200m"
-        memory: "1Gi"
-      limits:
-        cpu: "2000m"
-        memory: "2Gi"
-
-    persistence:
-      persistentVolumeClaim:
-        createClaim: true
-        storageClass: hcloud-volumes
-        size: 1Gi
-      none: false
-
 monitoring:
-  openshift:
-    enabled: false
+ openshift:
+   enabled: false
