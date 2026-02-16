@@ -9,6 +9,9 @@ env:
   offlineMode: false
   proxyConfig: null
 
+system:
+  enablePodSecurityPolicies: false
+
 central:
   telemetry:
     enabled: false

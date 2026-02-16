@@ -4,6 +4,9 @@
 
 clusterName: "hetzner"
 
+system:
+  enablePodSecurityPolicies: false
+  
 scannerV4:
   disable: true
 
