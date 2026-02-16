@@ -1,0 +1,44 @@
+#imagePullSecrets: #use existing pull secret is not working! we should use username and password!
+  # useExisting:
+  # - rox-pull-secret
+
+clusterName: "hetzner"
+
+scannerV4:
+  disable: true
+
+env:
+  openshift: false
+  istio: false
+
+admissionControl:
+  replicas: 1
+  resources:
+    requests:
+      memory: "100Mi"
+      cpu: "50m"
+    limits:
+      memory: "500Mi"
+      cpu: "500m"
+      
+collector:
+  resources:
+    requests:
+      memory: "100Mi"
+      cpu: "50m"
+    limits:
+      memory: "500Mi"
+      cpu: "500m"
+
+monitoring:
+  openshift:
+    enabled: false
+  
+sensor:
+  resources:
+    requests:
+      memory: "100Mi"
+      cpu: "50m"
+    limits:
+      memory: "1000Mi"
+      cpu: "1000m"

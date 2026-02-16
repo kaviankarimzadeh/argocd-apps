@@ -1,0 +1,113 @@
+#imagePullSecrets: #use existing pull secret is not working! we should use username and password!
+  # useExisting:
+  # - rox-pull-secret
+
+env:
+  openshift: false
+  istio: false   
+  platform: "default"
+  offlineMode: false
+  proxyConfig: null
+
+central:
+  telemetry:
+    enabled: false
+
+  adminPassword:
+    generate: true
+
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "150m"
+    limits:
+      memory: "2Gi"
+      cpu: "2000m"
+
+  exposure:
+    loadBalancer:
+      enabled: false
+
+    nodePort:
+      enabled: false
+
+    route:
+      enabled: false
+
+  db:
+    external: false
+
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "1"
+      limits:
+        memory: "2Gi"
+        cpu: "2"
+
+    persistence:
+      persistentVolumeClaim:
+        createClaim: true
+        storageClass: hcloud-volumes
+        size: 1Gi
+      none: false
+
+scannerV4:
+  disable: true
+
+  image:
+    name: rhacs-scanner-v4-rhel8
+    tag: 4.9.2
+
+  indexer:
+    replicas: 1
+
+    autoscaling:
+      disable: true
+
+    # Resource settings for the indexer deployment.
+    resources:
+      requests:
+        memory: "150Mi"
+        cpu: "100m"
+      limits:
+        memory: "2Gi"
+        cpu: "2000m"
+
+  matcher:
+    replicas: 1
+
+    autoscaling:
+      disable: true
+
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "100m"
+      limits:
+        memory: "2Gi"
+        cpu: "2000m"
+
+  db:
+    image:
+      name: rhacs-scanner-v4-db-rhel8
+      tag: 4.9.2
+
+    resources:
+      requests:
+        cpu: "200m"
+        memory: "1Gi"
+      limits:
+        cpu: "2000m"
+        memory: "2Gi"
+
+    persistence:
+      persistentVolumeClaim:
+        createClaim: true
+        storageClass: hcloud-volumes
+        size: 1Gi
+      none: false
+
+monitoring:
+  openshift:
+    enabled: false

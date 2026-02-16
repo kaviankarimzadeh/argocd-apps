@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: stackrox-secured-cluster-services
+  namespace: argo-cd
+spec:
+  project: default
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: 400.9.2
+      chart: stackrox-secured-cluster-services
+      helm:
+        releaseName: stackrox-secured-cluster-services
+        valueFiles:
+        - values.yaml
+        - $values/values/stackrox-secured-cluster-services.yaml
+        - $values/values/stackrox-init-bundle.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: stackrox
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true
