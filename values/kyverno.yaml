@@ -12,7 +12,7 @@ crds:
     enabled: false
 
   migration:
-    enabled: false
+    enabled: true
 
 
 config:
