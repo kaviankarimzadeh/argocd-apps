@@ -1,15 +1,15 @@
 openreports:
-  enabled: true
-  installCrds: true
+  enabled: false
+  installCrds: false
 
 reportsServer:
-  enabled: true
+  enabled: false
 
 crds:
   install: true
 
   reportsServer:
-    enabled: true
+    enabled: false
 
   migration:
     enabled: false
