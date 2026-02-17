@@ -3,7 +3,9 @@ openreports:
   installCrds: false
 
 reportsServer:
-  enabled: false
+  enabled: true
+  waitForReady: true
+  readinessTimeout: "300s"
 
 crds:
   install: true
