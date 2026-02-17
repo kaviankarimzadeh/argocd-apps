@@ -1,0 +1,27 @@
+openreports:
+  enabled: true
+  installCrds: true
+
+reportsServer:
+  enabled: true
+
+crds:
+  install: true
+
+  reportsServer:
+    enabled: true
+
+  migration:
+    enabled: false
+
+
+config:
+  create: true
+  preserve: true
+
+metricsConfig:
+  create: true
+
+grafana:
+  enabled: false
+
