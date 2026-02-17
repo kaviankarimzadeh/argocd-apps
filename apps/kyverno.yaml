@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
-      targetRevision: 3.7.0
+      targetRevision: 3.6.2
       chart: kyverno
       helm:
         releaseName: kyverno
