@@ -3,7 +3,7 @@ openreports:
   installCrds: false
 
 reportsServer:
-  enabled: false
+  enabled: true
 
 crds:
   install: true
