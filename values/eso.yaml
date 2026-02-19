@@ -1,7 +1,7 @@
 replicaCount: 1
 installCRDs: true
 crds:
-  createClusterExternalSecret: false
+  createClusterExternalSecret: true
   createClusterSecretStore: true
   createSecretStore: true
   createClusterGenerator: false
@@ -14,7 +14,7 @@ crds:
 openshiftFinalizers: false
 
 
-processClusterExternalSecret: false
+processClusterExternalSecret: true
 processClusterPushSecret: false
 processClusterStore: true
 processSecretStore: true
