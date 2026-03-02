@@ -6,8 +6,8 @@ env:
         key: token
   HCLOUD_LOAD_BALANCERS_LOCATION:
     value: "nbg1"
-  HCLOUD_LOAD_BALANCERS_USE_PRIVATE_IP:
-    value: "true"
+  HCLOUD_LOAD_BALANCERS_USE_PRIVATE_IP: ## it means when to use private IP or Public IP of nodes as tagets to LB - for Gateway api it should use Public based on my configs. 
+    value: "false"                   
   HCLOUD_LOAD_BALANCERS_ENABLED:
     value: "true"
 
