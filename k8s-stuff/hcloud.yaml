@@ -12,7 +12,6 @@ metadata:
 stringData:
   token: "YOUR-TOKEN"
 ---
----
 #Create a read+write API token in the Hetzner Cloud Console.
 apiVersion: v1
 kind: Secret
