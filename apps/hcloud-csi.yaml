@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
-      targetRevision: 2.17.0
+      targetRevision: 2.20.0
       chart: hcloud-csi
       helm:
         releaseName: hcloud-csi
