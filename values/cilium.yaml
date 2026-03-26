@@ -2,9 +2,6 @@ k8sServiceHost: 138.199.130.234
 k8sServicePort: 6443
 kubeProxyReplacement: true
 
-cluster:
-  name: kubernetes
-
 ipam:
   mode: "cluster-pool"
   operator:
