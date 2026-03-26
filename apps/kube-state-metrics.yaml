@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
-      targetRevision: 6.3.0
+      targetRevision: 7.2.2 #https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-state-metrics
       chart: kube-state-metrics
       helm:
         releaseName: kube-state-metrics
