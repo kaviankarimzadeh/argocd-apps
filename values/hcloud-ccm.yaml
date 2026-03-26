@@ -5,7 +5,7 @@ env:
         name: hcloud
         key: token
   HCLOUD_LOAD_BALANCERS_LOCATION:
-    value: "nbg1"
+    value: "fsn1" ## curl -H "Authorization: Bearer $TOKEN" https://api.hetzner.cloud/v1/locations
   HCLOUD_LOAD_BALANCERS_USE_PRIVATE_IP: ## it means when to use private IP or Public IP of nodes as tagets to LB - for Gateway api it should use Public based on my configs. / add providerID: hcloud://<> to assig workers automatically
     value: "false"                   
   HCLOUD_LOAD_BALANCERS_ENABLED:
@@ -16,8 +16,8 @@ monitoring:
   enabled: false
 
 networking:
-  # If enabled, hcloud-ccm will be deployed with networking support.
-  enabled: true
+  # If enabled, hcloud-ccm will be deployed with networking support. 
+  enabled: false ## true=with private networking support
   # If networking is enabled, clusterCIDR must match the PodCIDR subnet your cluster has been configured with.
   clusterCIDR: 10.244.0.0/20
   network:
