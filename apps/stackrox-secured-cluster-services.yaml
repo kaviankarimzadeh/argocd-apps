@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
-      targetRevision: 400.9.2
+      targetRevision: 400.10.1
       chart: stackrox-secured-cluster-services
       helm:
         releaseName: stackrox-secured-cluster-services
