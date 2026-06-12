@@ -23,12 +23,9 @@ persistence:
   type: pvc
   enabled: true
   storageClassName: hcloud-volumes
-  size: 1Gi
+  size: 10Gi
 
 admin:
   existingSecret: "grafana-credentials"
   userKey: admin-user
   passwordKey: admin-password
-
-env:
-  GF_FEATURE_TOGGLES_ENABLE: provisioning,kubernetesDashboards 

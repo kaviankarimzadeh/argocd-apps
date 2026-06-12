@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: registry-1.docker.io/kaviankarimzadeh
-      targetRevision: 11.3.5
+      targetRevision: 12.4.4
       chart: grafana
       helm:
         releaseName: grafana
@@ -19,7 +19,7 @@ spec:
       ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring
+    namespace: grafana
   syncPolicy:
     automated: null
     syncOptions:
