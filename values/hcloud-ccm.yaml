@@ -6,7 +6,7 @@ env:
         key: token
   HCLOUD_LOAD_BALANCERS_LOCATION:
     value: "fsn1" ## curl -H "Authorization: Bearer $TOKEN" https://api.hetzner.cloud/v1/locations
-  HCLOUD_LOAD_BALANCERS_USE_PRIVATE_IP: ## it means when to use private IP or Public IP of nodes as tagets to LB - for Gateway api it should use Public based on my configs. / add providerID: hcloud://<> to assig workers automatically
+  HCLOUD_LOAD_BALANCERS_USE_PRIVATE_IP: ## it means when to use private IP or Public IP of nodes as tagets to LB - for Gateway api it should use Public based on my configs. / add providerID: hcloud://<> to assig workers automatically ////WITHOUT # !!!!!
     value: "false"                   
   HCLOUD_LOAD_BALANCERS_ENABLED:
     value: "true"
