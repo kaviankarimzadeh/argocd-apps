@@ -23,7 +23,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: oci
-  namespace: argo-cd
+  namespace: argocd
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
@@ -35,11 +35,6 @@ stringData:
   username: <>
   password: <>
 type: Opaque
-```
-
-#### to add local cluster
-```
-argocd cluster add kubernetes-admin@cluster.local --name cloud1
 ```
 
 #### Pushing helm chart to docker hub:
