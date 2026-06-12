@@ -244,7 +244,6 @@ data:
       }
     }
 
-
     discovery.kubernetes "cert_manager_metrics" {
       role = "service"
       namespaces {
@@ -280,43 +279,15 @@ data:
       forward_to = [prometheus.remote_write.default.receiver]
     }
 
-    prometheus.scrape "cluster_metrics_kube_state_metrics" {
+    prometheus.scrape "kube_state_metrics" {
       targets    = discovery.kubernetes.kube_state_metrics.targets
       forward_to = [prometheus.remote_write.default.receiver]
     }
 
-    prometheus.scrape "cluster_metrics_metrics_server" {
+    prometheus.scrape "metrics_server" {
       targets    = discovery.kubernetes.metrics_server.targets
       forward_to = [prometheus.remote_write.default.receiver]
     }
-
-
-    prometheus.scrape "kube_apiserver" {
-      job_name   = "kubernetes-apiserver"
-      targets    = discovery.relabel.kube_apiserver.output
-      scheme     = "https"
-      bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
-      tls_config {
-        ca_file = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
-      }
-      forward_to = [prometheus.remote_write.default.receiver]
-    }
-
-    prometheus.scrape "coredns" {
-      targets    = discovery.relabel.coredns.output
-      forward_to = [prometheus.remote_write.default.receiver]
-    }
-
-    prometheus.scrape "cluster_metrics_kube_state_metrics" {
-      targets    = discovery.kubernetes.kube_state_metrics.targets
-      forward_to = [prometheus.remote_write.default.receiver]
-    }
-
-    prometheus.scrape "cluster_metrics_metrics_server" {
-      targets    = discovery.kubernetes.metrics_server.targets
-      forward_to = [prometheus.remote_write.default.receiver]
-    }
-
 
     prometheus.remote_write "default" {
         external_labels = {
