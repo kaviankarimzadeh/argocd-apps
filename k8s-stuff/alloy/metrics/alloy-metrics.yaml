@@ -294,6 +294,6 @@ data:
           cluster = "cloudnl",
         }
         endpoint {
-            url = "http://prometheus-server.monitoring/api/v1/push"
+            url = "http://prometheus-server.monitoring/api/prom/push"
         }
     }
