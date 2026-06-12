@@ -4,8 +4,8 @@ https://artifacthub.io/packages/helm/argo/argo-cd
 
 ```
 {
-    wget https://github.com/argoproj/argo-helm/releases/download/argo-cd-8.3.7/argo-cd-8.3.7.tgz
-    tar xzvf argo-cd-8.3.7.tgz
+    wget https://github.com/argoproj/argo-helm/releases/download/argo-cd-9.5.21/argo-cd-9.5.21.tgz
+    tar xzvf argo-cd-9.5.21.tgz
     cd argo-cd
 }
 ```
