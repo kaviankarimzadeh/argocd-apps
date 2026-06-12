@@ -5,9 +5,9 @@ global:
     level: debug
 
 server:
-  replicas: 2
+  replicas: 1
   ingress:
-    enabled: true
+    enabled: false
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-passthrough: "true"
@@ -23,10 +23,10 @@ controller:
   replicas: 1
 
 repoServer:
-  replicas: 2
+  replicas: 1
 
 applicationSet:
-  replicas: 2
+  replicas: 1
 
 redis-ha:
   enabled: true
