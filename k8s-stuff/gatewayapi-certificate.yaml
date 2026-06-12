@@ -13,7 +13,7 @@ metadata:
   name: letsencrypt-wildcard
 spec:
   acme:
-    email: kavian.karimzadeh@hotmail.com
+    email: <your-email>
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-wildcard-account-key
@@ -25,20 +25,20 @@ spec:
             key: api-token
       selector:
         dnsZones:
-        - "achaemenid.nl"
+        - "example.nl"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: wildcard-achaemenid
+  name: wildcard-example
   namespace: cilium
 spec:
-  secretName: wildcard-achaemenid-tls
+  secretName: wildcard-example-tls
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-wildcard
   dnsNames:
-    - "*.achaemenid.nl"
+    - "*.example.nl"
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
@@ -51,7 +51,7 @@ spec:
   - name: http
     protocol: HTTP
     port: 80
-    hostname: "*.achaemenid.nl"
+    hostname: "*.example.nl"
     allowedRoutes:
       namespaces:
         from: All
@@ -59,11 +59,11 @@ spec:
   - name: https
     protocol: HTTPS
     port: 443
-    hostname: "*.achaemenid.nl"
+    hostname: "*.example.nl"
     allowedRoutes:
       namespaces:
         from: All
     tls:
       mode: Terminate
       certificateRefs:
-      - name: wildcard-achaemenid-tls
+      - name: wildcard-example-tls
