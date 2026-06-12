@@ -11,7 +11,7 @@ https://artifacthub.io/packages/helm/argo/argo-cd
 ```
 
 ```
-helm -n argo-cd install argo-cd --values values.yaml --values https://raw.githubusercontent.com/kaviankarimzadeh/argocd-apps/main/values/argo-cd-values.yaml . --create-namespace
+helm -n argocd install argocd --values values.yaml --values https://raw.githubusercontent.com/kaviankarimzadeh/argocd-apps/main/values/argocd-values.yaml . --create-namespace
 ```
 
 
