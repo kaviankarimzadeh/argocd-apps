@@ -5,49 +5,324 @@ metadata:
   namespace: collectors
 data:
   config.alloy: |
-    logging {
-      level  = "debug"
-    }
 
-    discovery.kubernetes "k8s_pods" {
+    discovery.kubernetes "cilium_pods" {
       role = "pod"
-      selectors {
-        role = "pod"
-        label = "scrape=true"
+      namespaces {
+        names = ["cilium"]
       }
     }
 
-    discovery.relabel "pod_metrics" {
-      targets = discovery.kubernetes.k8s_pods.targets
+    // ---- Agent (port 9962) ----
+    discovery.relabel "cilium_agent" {
+      targets = discovery.kubernetes.cilium_pods.targets
 
+      rule {
+        source_labels = ["__meta_kubernetes_namespace"]
+        target_label  = "namespace"
+      }
       rule {
         source_labels = ["__meta_kubernetes_pod_name"]
-        action = "replace"
-        target_label = "pod_name"
+        target_label  = "pod"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_node_name"]
+        target_label  = "node"
+      }
+      rule {
+        replacement  = "cilium/cilium-agent"
+        target_label = "job"
+      }
+
+      // Only keep cilium-agent pods
+      rule {
+        source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_name"]
+        action        = "keep"
+        regex         = "cilium-agent"
+      }
+      // Only scrape the metrics port
+      rule {
+        source_labels = ["__meta_kubernetes_pod_container_port_number"]
+        action        = "keep"
+        regex         = "9962"
+      }
+    }
+
+    // ---- Operator (port 9963) ----
+    discovery.relabel "cilium_operator" {
+      targets = discovery.kubernetes.cilium_pods.targets
+
+      rule {
+        source_labels = ["__meta_kubernetes_namespace"]
+        target_label  = "namespace"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_name"]
+        target_label  = "pod"
+      }
+      rule {
+        replacement  = "cilium/cilium-operator"
+        target_label = "job"
       }
 
       rule {
-        source_labels = ["__meta_kubernetes_pod_annotaions_metrics_path"]
-        target_label  = "__metrics_path__"
-        regex         = "(.+)"
-        action        = "replace"
+        source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_name"]
+        action        = "keep"
+        regex         = "cilium-operator"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_container_port_number"]
+        action        = "keep"
+        regex         = "9963"
+      }
+    }
+
+    // ---- Envoy (port 9964) ----
+    discovery.relabel "cilium_envoy" {
+      targets = discovery.kubernetes.cilium_pods.targets
+
+      rule {
+        source_labels = ["__meta_kubernetes_namespace"]
+        target_label  = "namespace"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_name"]
+        target_label  = "pod"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_node_name"]
+        target_label  = "node"
+      }
+      rule {
+        replacement  = "cilium/cilium-envoy"
+        target_label = "job"
       }
 
       rule {
-          source_labels = ["__meta_kubernetes_pod_container_port_name"]
-          action = "keep"
-          regex = "http-metrics"
-      } 
+        source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_name"]
+        action        = "keep"
+        regex         = "cilium-envoy"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_container_port_number"]
+        action        = "keep"
+        regex         = "9964"
+      }
     }
 
-    prometheus.scrape "pod_metrics" {
-      targets    = discovery.relabel.pod_metrics.output
-      forward_to = [prometheus.remote_write.local.receiver]
-      scrape_interval = "30s"
+    // ---- Hubble (port 9965) ----
+    discovery.relabel "cilium_hubble" {
+      targets = discovery.kubernetes.cilium_pods.targets
+
+      rule {
+        source_labels = ["__meta_kubernetes_namespace"]
+        target_label  = "namespace"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_name"]
+        target_label  = "pod"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_node_name"]
+        target_label  = "node"
+      }
+      rule {
+        replacement  = "cilium/hubble"
+        target_label = "job"
+      }
+
+      rule {
+        source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_name"]
+        action        = "keep"
+        regex         = "cilium-agent"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_container_port_number"]
+        action        = "keep"
+        regex         = "9965"
+      }
     }
 
-    prometheus.remote_write "local" {
+    discovery.kubernetes "goldpinger" {
+        role = "pod"
+        namespaces {
+            names = [ "goldpinger"]
+        }
+    }
+
+    discovery.relabel "goldpinger" {
+        targets = discovery.kubernetes.goldpinger.targets
+
+        rule {
+            source_labels = ["__meta_kubernetes_namespace"]
+            action = "replace"
+            target_label = "namespace"
+        }
+
+        rule {
+            source_labels = ["__meta_kubernetes_pod_name"]
+            action = "replace"
+            target_label = "pod"
+        }
+
+        rule {
+            source_labels = ["__meta_kubernetes_pod_container_name"]
+            action = "replace"
+            target_label = "container"
+        }
+
+        rule {
+            source_labels = ["__meta_kubernetes_namespace", "__meta_kubernetes_pod_label_app_kubernetes_io_name", "__meta_kubernetes_pod_label_app_kubernetes_io_component"]
+            separator = "/"
+            regex = "(.*)/(.*)/(.*)"
+            replacement = "${1}/${2}-${3}"
+            target_label = "job"
+        }
+    }
+
+    discovery.kubernetes "kube_apiserver" {
+      role = "endpointslice"
+      selectors {
+        role = "endpointslice"
+        label = "kubernetes.io/service-name=kubernetes"
+      }
+      namespaces {
+        names = ["default"]
+      }
+    }
+
+    discovery.relabel "kube_apiserver" {
+      targets = discovery.kubernetes.kube_apiserver.targets
+
+      rule {
+        source_labels = ["__meta_kubernetes_endpointslice_port_name"]
+        regex         = "https"
+        action        = "keep"
+      }
+    }
+
+    discovery.kubernetes "coredns" {
+      role = "service"
+      selectors {
+        role = "service"
+        label = "k8s-app=kube-dns"
+      }
+      namespaces {
+        names = ["kube-system"]
+      }
+    }
+
+    discovery.relabel "coredns" {
+      targets = discovery.kubernetes.coredns.targets
+
+      rule {
+        source_labels = ["__meta_kubernetes_service_port_name"]
+        regex         = "metrics"
+        action        = "keep"
+      }
+    }
+
+    discovery.kubernetes "kube_state_metrics" {
+      role = "service"
+      selectors {
+        role = "service"
+        label = "app.kubernetes.io/name=kube-state-metrics"
+      }
+      namespaces {
+        names = ["monitoring"]
+      }
+    }
+
+    discovery.kubernetes "metrics_server" {
+      role = "service"
+      selectors {
+        role = "service"
+        label = "app.kubernetes.io/name=metrics-server"
+      }
+      namespaces {
+        names = ["monitoring"]
+      }
+    }
+
+
+    discovery.kubernetes "cert_manager_metrics" {
+      role = "service"
+      namespaces {
+        names = ["cert-manager"]
+      }
+      selectors {
+        role  = "service"
+        field = "metadata.name=cert-manager"
+        label = "app.kubernetes.io/component=controller"
+      }
+    }
+
+    prometheus.scrape "goldpinger" {
+        targets = discovery.relabel.goldpinger.output
+        forward_to = [prometheus.remote_write.default.receiver]
+        scrape_interval = "15s"
+        metrics_path = "/metrics"
+    }
+
+    prometheus.scrape "kube_apiserver" {
+      job_name   = "kubernetes-apiserver"
+      targets    = discovery.relabel.kube_apiserver.output
+      scheme     = "https"
+      bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      tls_config {
+        ca_file = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+      }
+      forward_to = [prometheus.remote_write.default.receiver]
+    }
+
+    prometheus.scrape "coredns" {
+      targets    = discovery.relabel.coredns.output
+      forward_to = [prometheus.remote_write.default.receiver]
+    }
+
+    prometheus.scrape "cluster_metrics_kube_state_metrics" {
+      targets    = discovery.kubernetes.kube_state_metrics.targets
+      forward_to = [prometheus.remote_write.default.receiver]
+    }
+
+    prometheus.scrape "cluster_metrics_metrics_server" {
+      targets    = discovery.kubernetes.metrics_server.targets
+      forward_to = [prometheus.remote_write.default.receiver]
+    }
+
+
+    prometheus.scrape "kube_apiserver" {
+      job_name   = "kubernetes-apiserver"
+      targets    = discovery.relabel.kube_apiserver.output
+      scheme     = "https"
+      bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      tls_config {
+        ca_file = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+      }
+      forward_to = [prometheus.remote_write.default.receiver]
+    }
+
+    prometheus.scrape "coredns" {
+      targets    = discovery.relabel.coredns.output
+      forward_to = [prometheus.remote_write.default.receiver]
+    }
+
+    prometheus.scrape "cluster_metrics_kube_state_metrics" {
+      targets    = discovery.kubernetes.kube_state_metrics.targets
+      forward_to = [prometheus.remote_write.default.receiver]
+    }
+
+    prometheus.scrape "cluster_metrics_metrics_server" {
+      targets    = discovery.kubernetes.metrics_server.targets
+      forward_to = [prometheus.remote_write.default.receiver]
+    }
+
+
+    prometheus.remote_write "default" {
+        external_labels = {
+          cluster = "cloudnl",
+        }
         endpoint {
-            url = "http://mimir-distributed-gateway.monitoring/api/v1/push"
+            url = "http://prometheus-server.monitoring/api/v1/push"
         }
     }

@@ -9,27 +9,29 @@ alloy:
 
   clustering:
     enabled: true
-    name: "metrics"
+    name: "alloy-metrics"
 
-  # -- Port to listen for traffic on.
-  listenPort: 12345
   enableReporting: false
+
   mounts:
+    # -- Mount /var/log -- we need /var/log/pods/*$1/*.log
     varlog: false
+    # -- Mount /var/lib/docker/containers -- we need /var/log/pods/*$1/*.log
     dockercontainers: false
+
   # -- Resource requests and limits to apply to the Grafana Alloy container.
   resources:
     limits:
-      memory: 512Mi
+      memory: 2048Mi
     requests:
-      cpu: 50m
-      memory: 64Mi
+      cpu: 500m
+      memory: 512Mi
 
 controller:
   type: 'statefulset'
 
 ingress:
-  enabled: true
+  enabled: false
   ingressClassName: nginx
   annotations:
     nginx.ingress.kubernetes.io/force-ssl-redirect: 'true'
