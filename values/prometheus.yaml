@@ -1,7 +1,7 @@
 server:
   retention: "7d"
   extraArgs:
-    - --web.enable-remote-write-receiver
+    web.enable-remote-write-receiver: true
   persistentVolume:
     enabled: true
     size: 30Gi
