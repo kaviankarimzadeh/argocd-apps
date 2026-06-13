@@ -172,7 +172,7 @@ data:
         }
 
         rule {
-            source_labels = ["__meta_kubernetes_namespace", "__meta_kubernetes_pod_label_app_kubernetes_io_name", "__meta_kubernetes_pod_label_app_kubernetes_io_component"]
+            source_labels = ["__meta_kubernetes_namespace", "__meta_kubernetes_pod_label_app_kubernetes_io_name"]
             separator = "/"
             regex = "(.*)/(.*)/(.*)"
             replacement = "${1}/${2}-${3}"
@@ -244,7 +244,7 @@ data:
       }
     }
 
-    discovery.kubernetes "cert_manager_metrics" {
+    discovery.kubernetes "cert_manager" {
       role = "service"
       namespaces {
         names = ["cert-manager"]
@@ -287,6 +287,57 @@ data:
     prometheus.scrape "metrics_server" {
       targets    = discovery.kubernetes.metrics_server.targets
       forward_to = [prometheus.remote_write.default.receiver]
+      scrape_interval = "30s"
+      metrics_path    = "/metrics"
+      scheme          = "https"
+      bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      tls_config {
+        ca_file = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+      }
+    }
+
+    prometheus.scrape "cilium_agent" {
+      targets         = discovery.relabel.cilium_agent.output
+      scrape_interval = "30s"
+      metrics_path    = "/metrics"
+      scheme          = "http"
+      honor_labels    = true
+      forward_to      = [prometheus.remote_write.default.receiver]
+    }
+
+    prometheus.scrape "cilium_operator" {
+      targets         = discovery.relabel.cilium_operator.output
+      scrape_interval = "30s"
+      metrics_path    = "/metrics"
+      scheme          = "http"
+      honor_labels    = false
+      forward_to      = [prometheus.remote_write.default.receiver]
+    }
+
+    prometheus.scrape "cilium_envoy" {
+      targets         = discovery.relabel.cilium_envoy.output
+      scrape_interval = "30s"
+      metrics_path    = "/metrics"
+      scheme          = "http"
+      honor_labels    = false
+      forward_to      = [prometheus.remote_write.default.receiver]
+    }
+
+    prometheus.scrape "cilium_hubble" {
+      targets         = discovery.relabel.cilium_hubble.output
+      scrape_interval = "30s"
+      metrics_path    = "/metrics"
+      scheme          = "http"
+      honor_labels    = true
+      forward_to      = [prometheus.remote_write.default.receiver]
+    }
+
+    prometheus.scrape "cert_manager" {
+      targets         = discovery.kubernetes.cert_manager.targets
+      scrape_interval = "30s"
+      metrics_path    = "/metrics"
+      scheme          = "http"
+      forward_to = [prometheus.remote_write.default.receiver]
     }
 
     prometheus.remote_write "default" {
@@ -294,6 +345,6 @@ data:
           cluster = "cloudnl",
         }
         endpoint {
-            url = "http://prometheus-server.monitoring/api/prom/push"
+            url = "http://prometheus-server.monitoring/api/v1/write"
         }
     }
