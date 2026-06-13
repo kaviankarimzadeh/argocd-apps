@@ -234,13 +234,22 @@ data:
     }
 
     discovery.kubernetes "metrics_server" {
-      role = "service"
-      selectors {
-        role = "service"
-        label = "app.kubernetes.io/name=metrics-server"
-      }
+      role = "pod"
       namespaces {
         names = ["monitoring"]
+      }
+      selectors {
+        role  = "pod"
+        label = "app.kubernetes.io/name=metrics-server"
+      }
+    }
+
+    discovery.relabel "metrics_server" {
+      targets = discovery.kubernetes.metrics_server.targets
+      rule {
+        source_labels = ["__meta_kubernetes_pod_container_port_name"]
+        regex         = "https"
+        action        = "keep"
       }
     }
 
@@ -285,14 +294,15 @@ data:
     }
 
     prometheus.scrape "metrics_server" {
-      targets    = discovery.kubernetes.metrics_server.targets
-      forward_to = [prometheus.remote_write.default.receiver]
-      scrape_interval = "30s"
-      metrics_path    = "/metrics"
-      scheme          = "https"
+      targets           = discovery.relabel.metrics_server.output
+      forward_to        = [prometheus.remote_write.default.receiver]
+      scheme            = "https"
+      metrics_path      = "/metrics"
       bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+
       tls_config {
-        ca_file = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+        ca_file              = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+        insecure_skip_verify = true
       }
     }
 
