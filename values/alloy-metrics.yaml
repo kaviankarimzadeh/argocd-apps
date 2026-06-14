@@ -22,10 +22,10 @@ alloy:
   # -- Resource requests and limits to apply to the Grafana Alloy container.
   resources:
     limits:
-      memory: 2048Mi
+      memory: 1024Mi
     requests:
-      cpu: 500m
-      memory: 512Mi
+      cpu: 100m
+      memory: 256Mi
 
 controller:
   type: 'statefulset'

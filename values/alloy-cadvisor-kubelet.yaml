@@ -21,8 +21,8 @@ alloy:
     limits:
       memory: 1024Mi
     requests:
-      cpu: 500m
-      memory: 512Mi
+      cpu: 100m
+      memory: 256Mi
 
   securityContext:
     privileged: true
