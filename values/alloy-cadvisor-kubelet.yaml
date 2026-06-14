@@ -1,0 +1,36 @@
+crds:
+  create: false
+
+alloy:
+  configMap:
+    create: false
+    name: alloy-cadvisor-kubelet
+    key: config.alloy
+
+  clustering:
+    enabled: true
+    name: "alloy-cadvisor-kubelet"
+
+  enableReporting: false
+
+  mounts:
+    varlog: false
+    dockercontainers: false
+
+  resources:
+    limits:
+      memory: 1024Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+  securityContext:
+    privileged: true
+
+controller:
+  type: 'daemonset'
+  tolerations:
+  - operator: Exists
+
+ingress:
+  enabled: false

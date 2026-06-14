@@ -1,0 +1,95 @@
+crds:
+  create: false
+
+alloy:
+  extraEnv:
+  - name: NODE_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+
+  configMap:
+    create: false
+    name: alloy-node-exporter
+    key: config.alloy
+
+  clustering:
+    enabled: true
+    name: "alloy-node-exporter"
+
+  enableReporting: false
+
+  mounts:
+    # -- Mount /var/log -- we need /var/log/pods/*$1/*.log
+    varlog: false
+    # -- Mount /var/lib/docker/containers -- we need /var/log/pods/*$1/*.log
+    dockercontainers: false
+
+    extra:
+    - name: host-root
+      mountPath: /host
+      readOnly: true
+      mountPropagation: HostToContainer
+    - name: host-proc
+      mountPath: /host/proc
+      readOnly: true
+    - name: host-sys
+      mountPath: /host/sys
+      readOnly: true
+    - name: host-udev
+      readOnly: true
+      mountPath: /host/run/udev/data
+
+  resources:
+    limits:
+      memory: 1024Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+  listenAddr: 0.0.0.0
+  listenPort: 12346
+
+  livenessProbe:
+    httpGet:
+      path: /-/healthy
+      port: 12346
+
+controller:
+  type: 'daemonset'
+
+  hostNetwork: true
+  hostPID: true 
+  dnsPolicy: "ClusterFirstWithHostNet"
+
+  securityContext:
+    capabilities:
+      add:
+        - NET_ADMIN
+
+  ports:
+    - name: http
+      containerPort: 12346
+      protocol: TCP
+    - name: grpc
+      containerPort: 12347
+      protocol: TCP
+
+  tolerations:
+     - operator: Exists
+
+  volumes:
+    extra:
+    - name: host-root
+      hostPath:
+        path: /
+    - name: host-proc
+      hostPath:
+        path: /proc
+    - name: host-sys
+      hostPath:
+        path: /sys
+    - name: host-udev
+      hostPath:
+        path: /run/udev/data
+        type: DirectoryOrCreate

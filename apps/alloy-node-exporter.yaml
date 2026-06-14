@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: alloy-node-exporter
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: registry-1.docker.io/kaviankarimzadeh
+      targetRevision: 1.1.2
+      chart: alloy
+      helm:
+        releaseName: alloy-node-exporter
+        valueFiles:
+        - values.yaml
+        - $values/values/alloy-node-exporter.yaml
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      ref: values
+    - repoURL: 'https://github.com/kaviankarimzadeh/argocd-apps.git'
+      targetRevision: main
+      path: ./k8s-stuff/alloy/node-exporter
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: collectors
+  syncPolicy:
+    automated: null
+    syncOptions:
+    - CreateNamespace=true

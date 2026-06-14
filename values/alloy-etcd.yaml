@@ -1,0 +1,67 @@
+crds:
+  create: false
+
+alloy:
+  configMap:
+    create: false
+    name: alloy-etcd
+    key: config.alloy
+
+  clustering:
+    enabled: false
+    name: "alloy-etcd"
+
+  enableReporting: false
+
+  mounts:
+    # -- Mount /var/log -- we need /var/log/pods/*$1/*.log
+    varlog: false
+    # -- Mount /var/lib/docker/containers -- we need /var/log/pods/*$1/*.log
+    dockercontainers: false
+
+    extra:
+    - name: etcd-ca
+      mountPath: /etc/kubernetes/pki/etcd/ca.crt
+      readOnly: true
+    - name: etcd-healthcheck-crt
+      mountPath: /etc/kubernetes/pki/etcd/healthcheck-client.crt
+      readOnly: true
+    - name: etcd-healthcheck-key
+      mountPath: /etc/kubernetes/pki/etcd/healthcheck-client.key
+      readOnly: true
+
+  resources:
+    limits:
+      memory: 1024Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+controller:
+  type: 'daemonset'
+
+  nodeSelector:
+    node-role.kubernetes.io/control-plane: ""
+
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+
+  volumes:
+    extra:
+    - name: etcd-ca
+      hostPath:
+        path: /etc/kubernetes/pki/etcd/ca.crt
+        type: File
+    - name: etcd-healthcheck-crt
+      hostPath:
+        path: /etc/kubernetes/pki/etcd/healthcheck-client.crt
+        type: File
+    - name: etcd-healthcheck-key
+      hostPath:
+        path: /etc/kubernetes/pki/etcd/healthcheck-client.key
+        type: File
+
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
