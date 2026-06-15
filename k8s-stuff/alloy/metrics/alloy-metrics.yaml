@@ -341,7 +341,7 @@ data:
 
     prometheus.scrape "cert_manager" {
       targets         = discovery.kubernetes.cert_manager.targets
-      scrape_interval = "30s"
+      scrape_interval = "15s"
       metrics_path    = "/metrics"
       scheme          = "http"
       forward_to = [prometheus.remote_write.default.receiver]
